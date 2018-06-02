@@ -3,14 +3,6 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wlc</groupId>
-    <artifactId>boot2-vue-J10</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <name>boot2-vue-J10</name>
-    <description>Demo project for Spring Boot 2 (Java 10) and Vue on frontend</description>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,8 +10,18 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>com.wlc</groupId>
+    <artifactId>boot2-vue-J10</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>boot2-vue-J10</name>
+    <description>Demo project for Spring Boot 2 (Java 10) and Vue as frontend</description>
+
     <properties>
         <main.basedir>${project.basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     
     <modules>
