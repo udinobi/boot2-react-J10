@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to load to ES text files (tab/separated fields) containing geographical info for ONE specific country (only!).
+# Script to load to ES text files (tab/separated fields) containing geographical info for ONE (only!) specific country.
 # Files are downloaded from http://download.geonames.org/export/dump/
 
 [ $# -gt 0 -a -e "$1" ] || { echo "Missing input file argument or input file not found"; exit 1; }

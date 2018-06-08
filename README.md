@@ -1,12 +1,12 @@
-# boot2-vue-J10
+# boot2-react-J10
 
-Demo project for Spring Boot 2 (Java 10) and Vue as frontend.
+PoC project with Spring Boot 2 (Java 10) as backend and (React, Redux) as frontend.
 
-App queries an ElasticSearch instance for location suggestions.
+User types in a auto-completion input field (suggestions are provided querying an ElasticSearch instance) names of locations, which, when selected, are shown on a Map.
 
 # Installation
 
-mvn clean nstall
+mvn clean install
 
 # Running
 

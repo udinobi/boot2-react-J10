@@ -1,6 +1,8 @@
 # frontend
 
-> Demo project for Spring Boot 2 (Java 10) and Vue
+PoC project with Spring Boot 2 (Java 10) as backend and (React, Redux) as frontend.
+
+User types in a auto-completion input field (suggestions are provided querying an ElasticSearch instance) names of locations, which, when selected, are shown on a Map.
 
 ## Build Setup
 
@@ -25,4 +27,12 @@ yarn run e2e
 
 # run all tests
 yarn test
+```
+
+``` bash
+# Project was generated with 'create-react-app', with 'react-scripts-ts' taking care of all configuration files.
+# To have full control of the webpack,babel,... configuration files run
+yarn run eject
+
+# but notice that after the configuration won't be managed for you anymore. You'll be on your own.
 ```

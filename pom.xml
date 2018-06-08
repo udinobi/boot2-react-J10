@@ -11,12 +11,12 @@
     </parent>
 
     <groupId>com.wlc</groupId>
-    <artifactId>boot2-vue-J10</artifactId>
+    <artifactId>boot2-react-J10</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>boot2-vue-J10</name>
-    <description>Demo project for Spring Boot 2 (Java 10) and Vue as frontend</description>
+    <name>boot2-react-J10</name>
+    <description>PoC project for Spring Boot 2 (Java 10) as backend and (React, Redux) as frontend</description>
 
     <properties>
         <main.basedir>${project.basedir}</main.basedir>
