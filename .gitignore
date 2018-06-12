@@ -31,6 +31,8 @@
 .DS_Store
 
 ### Frontend stuff
+build/
+node/
 node_modules/
 /dist/
 npm-debug.log*
