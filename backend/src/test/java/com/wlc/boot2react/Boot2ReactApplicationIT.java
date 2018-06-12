@@ -2,6 +2,7 @@ package com.wlc.boot2react;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.wlc.boot2react.document.Country;
 import com.wlc.boot2react.document.SuggestedLocation;
 
 import org.junit.Test;
@@ -44,6 +45,20 @@ public class Boot2ReactApplicationIT {
 
     @LocalServerPort
     private int port;
+
+    @Test
+    public void testCountries() throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        String uri = "http://localhost:" + port + "/geo/countries";
+        ResponseEntity<String> response = new TestRestTemplate().exchange(uri, HttpMethod.GET, entity, String.class);
+
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+
+        Country[] suggestedLocations = new ObjectMapper().readValue(response.getBody(), Country[].class);
+        assertThat(suggestedLocations, is(not(emptyArray())));
+    }
 
     @Test
     public void testSuggestExistingLocations() throws IOException {

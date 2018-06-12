@@ -1,15 +1,53 @@
 #!/bin/bash
 
-# Script to load to ES text files (tab/separated fields) containing geographical info for ONE (only!) specific country.
+# Script to load to ES text files (tab/separated fields) containing geographical info for ONE specific country (only!).
 # Files are downloaded from http://download.geonames.org/export/dump/
 
-[ $# -gt 0 -a -e "$1" ] || { echo "Missing input file argument or input file not found"; exit 1; }
+[ $# -gt 1 ] || {
+    echo "[Error] Missing argument. e.g. $0  GB  \"Great Britain\""
+    exit 1
+}
 
-inpfile=$1
+outdir=$(mktemp -d)
 
-countryCode=`basename ${inpfile} .txt`
+pushd "$outdir"
 
-jsonfile=$(mktemp /tmp/locations.json.XXXXXX)
+countryCode="$1"
+country="$2"
+
+zipfile="${countryCode}.zip"
+
+wget "http://download.geonames.org/export/dump/${zipfile}" || {
+    popd
+    echo "[Error] Cannot download country file (${zipfile})"
+    rm -fr "$outdir"
+    exit 1
+}
+
+[ -s "$zipfile" ] || {
+    popd
+    echo "[Error] Country file ($zipfile) not found or empty"
+    rm -fr "$outdir"
+    exit 1
+}
+
+unzip "$zipfile" || {
+    popd
+    echo "[Error] Country file ($zipfile) corrupted"
+    rm -fr "$outdir"
+    exit 1
+}
+
+txtfile="${countryCode}.txt"
+
+[ -e "$txtfile" ] || {
+    popd
+    echo "[Error] Not found the file (${txtfile}) expected from the zip extraction"
+    rm -fr "$outdir"
+    exit 1
+}
+
+jsonfile=$(mktemp locations.json.XXXXXX)
 
 EShost=192.168.56.10
 ESport=9200
@@ -31,28 +69,35 @@ while IFS=$'\t' read -ra fields; do
     fi
 
     echo "\"tz\":\"${fields[len-2]}\",\"lastMod\":\"${fields[len-1]}\"}" >> ${jsonfile}
-done < ${inpfile}
+done < ${txtfile}
 
-curl -XPUT "http://${EShost}:${ESport}/locations?pretty" -H "content-type: application/json" -d @- <<EOF
+code=$(curl -s -w "%{http_code}" http://${EShost}:${ESport}/locations -o /dev/null)
+
+[ "$code" != "200" ] && curl -XPUT "http://${EShost}:${ESport}/locations"
+
+curl -XPUT "http://${EShost}:${ESport}/locations/${countryCode}/_mapping" -H "content-type: application/json" -d @- <<EOF
 {
-    "mappings": {
-        "${countryCode}": {
-            "dynamic": "strict",
-            "properties": {
-                "geoId":    { "type": "integer" },
-                "name":     { "type": "completion" },
-                "location": { "type": "geo_point" },
-                "tz":       { "type": "text" },
-                "lastMod":  { "type": "date", "format" : "yyyy-MM-dd" }
-            }
+    "${countryCode}": {
+        "dynamic": "strict",
+        "_meta": {
+            "country": "${country}"
+        },
+        "properties": {
+            "geoId":    { "type": "integer" },
+            "name":     { "type": "completion" },
+            "location": { "type": "geo_point" },
+            "tz":       { "type": "text" },
+            "lastMod":  { "type": "date", "format" : "yyyy-MM-dd" }
         }
     }
 }
 EOF
 
-curl -H "Content-Type: application/x-ndjson" -XPOST "http://${EShost}:${ESport}/locations/${countryCode}/_bulk" --data-binary @${jsonfile}
+curl -H "Content-Type: application/json" -XPOST "http://${EShost}:${ESport}/locations/${countryCode}/_bulk" --data-binary @${jsonfile}
 
-rm ${jsonfile}
+popd
+rm -fr "$outdir"
+exit 0
 
 # e.g. :
 #    curl -XPOST \

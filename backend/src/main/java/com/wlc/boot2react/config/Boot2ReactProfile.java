@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  */
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.wlc.boot2react.repository")
+@EnableElasticsearchRepositories("com.wlc.boot2react.repository")
 public class Boot2ReactProfile {
     @Configuration
     @Profile("dev")

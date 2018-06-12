@@ -1,5 +1,6 @@
 package com.wlc.boot2react.controller;
 
+import com.wlc.boot2react.document.Country;
 import com.wlc.boot2react.document.SuggestedLocation;
 
 import com.wlc.boot2react.repository.LocationRepository;
@@ -28,6 +29,12 @@ public class GeoController {
 
     @Value("${max.suggested.locations : 10}")
     private int defaultMaxSuggestions;
+
+    @CrossOrigin
+    @GetMapping(value = "/countries")
+    List<Country> countries() {
+        return locationRepository.countries();
+    }
 
     @CrossOrigin
     @GetMapping(value = "/suggest/{countryCode}/{locationTerm}")
