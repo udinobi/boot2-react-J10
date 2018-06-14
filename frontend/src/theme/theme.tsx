@@ -7,9 +7,29 @@ export default injectGlobal`
     body {
         border: 0;
         font-family: Raleway, sans-serif;
-        font-size: 1rem;
+        font-size: 1.1rem;
         margin: 0;
         padding: 0;
+    }
+
+    .ant-select-selection--single {
+        height: 36px;
+    }
+
+    .grid-overflow {
+        overflow: hidden;
+    }
+
+    .section {
+        background-color: #eee;
+        border-radius: 14px;
+        padding: 2%;
+    }
+
+    .title-border {
+        border-bottom: 1px solid #ccc;
+        margin: 0 auto 40px auto;
+        padding-bottom: 6px;
     }
 
     .title {
@@ -19,8 +39,7 @@ export default injectGlobal`
             font-size: 1.4rem;
         }
 
-        margin-right: 12px;
-        margin-top: 12px;
+        margin: 0 4px;
         text-align: right;
     }
 `

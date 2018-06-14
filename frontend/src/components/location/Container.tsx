@@ -1,21 +1,25 @@
+import { Col, Row } from "antd"
+
 import React from "react"
 
-// import styled from "styled-components"
+import Countries from "../../containers/location/Countries"
 
-import Section from "../Section"
-
-import Countries from "./Countries"
-
-class Container extends React.Component {
-
-    public render() {
-        return (
-            <Section>
-                <h1 className="title">Please, enter the location you want the weather report for</h1>
-                <Countries />
-            </Section>
-        )
-    }
-}
-
-export default Container
+export default () => (
+    <div className="section">
+        <div className="title-border">
+            <h1 className="title">Please, enter the location you want the weather report for</h1>
+        </div>
+        <div className="grid-overflow">
+            <Row>
+                <Col xs={24} sm={24} md={24} lg={12} style={{ marginBottom: 8 }}>
+                    <label>Country</label>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={24} sm={24} md={24} lg={12}>
+                    <Countries />
+                </Col>
+            </Row>
+        </div>
+    </div>
+)

@@ -25,6 +25,7 @@
   },
   "exclude": [
     "acceptance-tests",
+    "bin",
     "build",
     "config-overrides.js",
     "jest",

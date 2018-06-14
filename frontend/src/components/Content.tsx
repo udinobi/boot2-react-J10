@@ -11,11 +11,6 @@ import WeatherReport from "./weather/Container"
 
 class Content extends React.Component {
 
-    private readonly content = styled.div`
-        overflow: hidden;
-        text-align: center;
-    `
-
     private readonly row = styled(Row)`
         margin-top: 42px;
     `
@@ -24,7 +19,7 @@ class Content extends React.Component {
 
     public render() {
         return (
-            <this.content>
+            <div className="grid-overflow">
                 <this.row gutter={this.gutter}>
                     <Col xs={24} sm={24} md={24} lg={12}>
                         <Location />
@@ -41,7 +36,7 @@ class Content extends React.Component {
                         <Map />
                     </Col>
                 </this.row>
-            </this.content>
+            </div>
         )
     }
 }

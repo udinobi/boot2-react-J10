@@ -1,14 +1,19 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import { Provider } from "react-redux"
 
 import App from "./components/App"
+
+import store from "./store/store"
 
 import "./theme/theme"
 
 import registerServiceWorker from "./registerServiceWorker"
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+        <App />
+  </Provider>,
   document.getElementById("root") as HTMLElement
 )
 registerServiceWorker()

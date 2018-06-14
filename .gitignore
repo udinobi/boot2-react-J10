@@ -31,6 +31,7 @@
 .DS_Store
 
 ### Frontend stuff
+bin/
 build/
 node/
 node_modules/

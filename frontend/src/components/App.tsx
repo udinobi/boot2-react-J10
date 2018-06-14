@@ -28,6 +28,7 @@ class App extends React.Component {
     `
 
     private readonly Header = styled(Layout.Header)`
+        background-color: #111;
         height: 64px;
         @media (max-width: 459px) {
             padding: 0;
