@@ -3,6 +3,7 @@ import { Col, Row } from "antd"
 import React from "react"
 
 import Countries from "../../containers/location/Countries"
+import ReloadCountries from "../../containers/location/ReloadCountries"
 
 export default () => (
     <div className="section">
@@ -16,8 +17,12 @@ export default () => (
                 </Col>
             </Row>
             <Row>
-                <Col xs={24} sm={24} md={24} lg={12}>
+                <Col xs={20} sm={20} md={20} lg={12}>
                     <Countries />
+                </Col>
+                {/* Even with hidden overflow, I was not able to use gutter for Row, so... inline styling */}
+                <Col span={2} style={{ marginLeft: 16, marginTop: 2 }}>
+                    <ReloadCountries />
                 </Col>
             </Row>
         </div>
