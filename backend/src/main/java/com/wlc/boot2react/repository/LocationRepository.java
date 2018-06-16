@@ -108,14 +108,14 @@ public class LocationRepository {
     public Stream<Optional<SuggestedCompletionLocation>> suggestByLocation(String countryCode, String locationTerm, int maxSuggestions) {
         SuggestionBuilder suggestionBuilder = SuggestBuilders
             .completionSuggestion("name")
-            .prefix(locationTerm, Fuzziness.ONE)
+            .prefix(locationTerm, Fuzziness.ZERO)
             .size(maxSuggestions);
 
         SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion(countryCode, suggestionBuilder);
 
         SearchResponse response = client
             .prepareSearch("locations")
-            .setFetchSource(new String[] { "name", "location" }, null)
+            .setFetchSource(new String[] { "geoId", "name", "location" }, null)
             .suggest(suggestBuilder).get();
 
         List<? extends Suggestion.Entry.Option> options = response

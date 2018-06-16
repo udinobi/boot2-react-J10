@@ -7,7 +7,7 @@ export const initialState: HistoryState = {
 }
 
 const removeLocation = (locations: Location[], location: Location) =>
-    locations.filter(l => location.id !== l.id)
+    locations.filter(l => location.geoId !== l.geoId)
 
 const reducer = (state = initialState, action: HistoryActions) => {
     switch (action.type) {

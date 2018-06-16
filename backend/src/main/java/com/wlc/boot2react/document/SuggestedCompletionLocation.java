@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class SuggestedCompletionLocation implements Serializable {
+	private int geoId;
     private Completion name;
     private GeoPoint location;
 }

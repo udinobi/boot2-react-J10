@@ -12,8 +12,11 @@ export default injectGlobal`
         padding: 0;
     }
 
-    .ant-select-selection--single {
+    .ant-select-selection--single,
+    .ant-select-auto-complete.ant-select .ant-input,
+    .ant-select-auto-complete.ant-select .ant-select-selection__rendered {
         height: 36px;
+        line-height: 36px;
     }
 
     .grid-overflow {
@@ -24,11 +27,12 @@ export default injectGlobal`
         background-color: #eee;
         border-radius: 14px;
         padding: 2%;
+        padding-bottom: 4%;
     }
 
     .title-border {
         border-bottom: 1px solid #ccc;
-        margin: 0 auto 40px auto;
+        margin: 0 auto 32px auto;
         padding-bottom: 6px;
     }
 

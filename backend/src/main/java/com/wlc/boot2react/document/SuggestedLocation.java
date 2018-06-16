@@ -9,11 +9,13 @@ import java.io.Serializable;
 
 @Data
 public class SuggestedLocation implements Serializable {
+    private int geoId;
     private String name;
-    private GeoPoint location;
+    private GeoPoint coord;
 
     public SuggestedLocation(SuggestedCompletionLocation suggestedCompletionLocation) {
+        this.geoId = suggestedCompletionLocation.getGeoId();
         this.name = suggestedCompletionLocation.getName().getInput()[ 0 ];
-        this.location = suggestedCompletionLocation.getLocation();
+        this.coord = suggestedCompletionLocation.getLocation();
     }
 }

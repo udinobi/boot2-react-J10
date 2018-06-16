@@ -4,33 +4,27 @@ import { connect } from "react-redux"
 
 import styled from "styled-components"
 
-/*
-import { AppState, ConnectedReduxProps } from "../../store/store"
-
-interface CountriesProps extends ConnectedReduxProps<LocationState> {
-*/
-
-import { Option } from "tsoption"
+import { None, Option } from "tsoption"
 
 import { AppState } from "../../store/store"
 
-import { updateCountries } from "../../store/location/actions"
+import {
+    LoadCountriesDispatchProps,
+    mapCountriesDispatchToProps
+} from "../../store/location/countriesActions"
 
-import { Country } from "../../store/location/types"
-
-interface CountriesState {
-    countries: Country[]
-}
+import { CountriesState, Country } from "../../store/location/types"
 
 interface SelectionState {
-    country: string
+    country: Option<Country>
 }
 
-interface DispatchProps {
-    updateCountries: typeof updateCountries
+interface Value {
+    key: string
+    label: string
 }
 
-class Countries extends React.Component<DispatchProps, CountriesState & SelectionState> {
+class Countries extends React.Component<LoadCountriesDispatchProps, CountriesState & SelectionState> {
 
     private readonly Option = Select.Option
 
@@ -39,27 +33,28 @@ class Countries extends React.Component<DispatchProps, CountriesState & Selectio
         width: 100%;
     `
 
-    constructor(props: DispatchProps) {
+    constructor(props: LoadCountriesDispatchProps) {
         super(props)
-        this.state = { countries: [], country: "" }
+        this.state = { countries: [], country: None.of() }
     }
 
     public componentDidMount() {
-        this.props.updateCountries()
+        this.props.loadCountries()
     }
 
-    public componentWillReceiveProps(props: DispatchProps & CountriesState) {
+    public componentWillReceiveProps(props: LoadCountriesDispatchProps & CountriesState) {
         if (this.state.countries !== props.countries) {
             const country = props.countries.length === 0
-                ? ""                                  // No countries... need to clear <select>
-                : (this.state.country.length === 0    // Have countries but if no current selection then... 
-                    ? props.countries[0].name            // Set the <select> to the 1st element in props.countries
-                                                      // else <select> has a current selection then...
-                    : Option.of(props.countries.find(_ => _.name === this.state.country))
-                        .map(_ => _.name)             // check if selection is in props.countries
-                        .getOrElse(props.countries[0].name)  // if not set the <select> to the 1st element in props.countries
+                ? Option.of<Country>()               // No countries... need to clear <select>
+                : this.state.country.flatMap(_1 =>   // Have countries and if have current selection then... 
+                    // check if selection is in props.countries
+                    Option.of(props.countries.find(_2 => _2.code === _1.code))
                 )
-                       
+                // if not, set the <select>'s value to the 1st element in props.countries
+                .orElse(Option.of(props.countries[0]))
+
+            country.map(_ => props.countrySelected(_))
+
             this.setState({
                 countries: props.countries,
                 country
@@ -68,27 +63,41 @@ class Countries extends React.Component<DispatchProps, CountriesState & Selectio
     }
 
     public render() {
-        console.log("rendering")
         const countries = this.state.countries;
-        const options = countries.map(country => <this.Option value={country.name} key={country.code}>{country.name}</this.Option>);
+        const options = countries.map(country =>
+            <this.Option value={country.code} key={country.name}>
+                {country.name}
+            </this.Option>
+        );
+
+        const value = this.state.country.map(country => ({
+            key: country.code,
+            label: country.name
+        })).getOrElse({ key: "", label: "" })
+
         return (
-            <this.select value={this.state.country} onChange={this.handleChange}>
+            <this.select
+                labelInValue={true}
+                onSelect={this.onSelect}
+                value={value}
+            >
                 {options}
             </this.select>
         )
     }
 
-    private readonly handleChange = (country: string) => {
-        this.setState({ country })
-}
+    private readonly onSelect = (value: Value) => {
+        const country = {
+            code: value.key,
+            name: value.label
+        }
+        this.setState({ country: Option.of(country) })
+        this.props.countrySelected(country)
+    }
 }
 
 const mapStateToProps = (state: AppState): CountriesState => ({
     countries: state.countriesState.countries
 })
 
-const mapDispatchToProps = {
-    updateCountries
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Countries);
+export default connect(mapStateToProps, mapCountriesDispatchToProps)(Countries);
