@@ -7,8 +7,8 @@ import thunk from "redux-thunk"
 import historyReducer from "./history/reducer"
 import { HistoryState } from "./history/types"
 
-import { countriesReducer, suggestionsReducer } from "./location/reducer"
-import { CountriesState, SuggestionsState } from "./location/types"
+import { cityReducer, countryReducer } from "./location/reducer"
+import { CityState, CountryState } from "./location/types"
 
 // Additional props for connected React components. This prop is passed by default with `connect()`
 export interface ConnectedReduxProps<T> {
@@ -19,18 +19,18 @@ export interface ConnectedReduxProps<T> {
   
 // The top-level state object
 export interface AppState {
-    countriesState: CountriesState
+    cityState: CityState
+    countryState: CountryState
     historyState: HistoryState
-    suggestionsState: SuggestionsState
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property
 // using the reducer with the matching name. It"s important that the names match exactly, and that
 // the reducer acts on the corresponding ApplicationState property type.
 const reducers = combineReducers<AppState>({
-    countriesState: countriesReducer,
-    historyState: historyReducer,
-    suggestionsState: suggestionsReducer
+    cityState: cityReducer,
+    countryState: countryReducer,
+    historyState: historyReducer
 })
 
 // redux-logger has to be the last middleware in chain.

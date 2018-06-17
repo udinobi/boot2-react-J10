@@ -9,11 +9,11 @@ import { None, Option } from "tsoption"
 import { AppState } from "../../store/store"
 
 import {
-    LoadCountriesDispatchProps,
-    mapCountriesDispatchToProps
-} from "../../store/location/countriesActions"
+    LoadCountryDispatchProps,
+    mapCountryDispatchToProps
+} from "../../store/location/countryActions"
 
-import { CountriesState, Country } from "../../store/location/types"
+import { Country, CountryState } from "../../store/location/types"
 
 interface SelectionState {
     country: Option<Country>
@@ -24,7 +24,7 @@ interface Value {
     label: string
 }
 
-class Countries extends React.Component<LoadCountriesDispatchProps, CountriesState & SelectionState> {
+class Countries extends React.Component<LoadCountryDispatchProps, CountryState & SelectionState> {
 
     private readonly Option = Select.Option
 
@@ -33,7 +33,7 @@ class Countries extends React.Component<LoadCountriesDispatchProps, CountriesSta
         width: 100%;
     `
 
-    constructor(props: LoadCountriesDispatchProps) {
+    constructor(props: LoadCountryDispatchProps) {
         super(props)
         this.state = { countries: [], country: None.of() }
     }
@@ -42,7 +42,7 @@ class Countries extends React.Component<LoadCountriesDispatchProps, CountriesSta
         this.props.loadCountries()
     }
 
-    public componentWillReceiveProps(props: LoadCountriesDispatchProps & CountriesState) {
+    public componentWillReceiveProps(props: LoadCountryDispatchProps & CountryState) {
         if (this.state.countries !== props.countries) {
             const country = props.countries.length === 0
                 ? Option.of<Country>()               // No countries... need to clear <select>
@@ -63,25 +63,13 @@ class Countries extends React.Component<LoadCountriesDispatchProps, CountriesSta
     }
 
     public render() {
-        const countries = this.state.countries;
-        const options = countries.map(country =>
-            <this.Option value={country.code} key={country.name}>
-                {country.name}
-            </this.Option>
-        );
-
-        const value = this.state.country.map(country => ({
-            key: country.code,
-            label: country.name
-        })).getOrElse({ key: "", label: "" })
-
         return (
             <this.select
                 labelInValue={true}
                 onSelect={this.onSelect}
-                value={value}
+                value={this.state.country.map(this.value).getOrElse({ key: "", label: "" })}
             >
-                {options}
+                {this.state.countries.map(this.optionsFromCountries)}
             </this.select>
         )
     }
@@ -94,10 +82,20 @@ class Countries extends React.Component<LoadCountriesDispatchProps, CountriesSta
         this.setState({ country: Option.of(country) })
         this.props.countrySelected(country)
     }
+
+    private readonly optionsFromCountries = (country: Country) =>
+        <this.Option value={country.code} key={country.name}>
+            {country.name}
+        </this.Option>
+
+    private readonly value = (country: Country) => ({
+        key: country.code,
+        label: country.name
+    })
 }
 
-const mapStateToProps = (state: AppState): CountriesState => ({
-    countries: state.countriesState.countries
+const mapStateToProps = (state: AppState): CountryState => ({
+    countries: state.countryState.countries
 })
 
-export default connect(mapStateToProps, mapCountriesDispatchToProps)(Countries);
+export default connect(mapStateToProps, mapCountryDispatchToProps)(Countries);

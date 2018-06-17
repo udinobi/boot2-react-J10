@@ -1,61 +1,62 @@
 import { None, Option } from "tsoption"
 
 import {
-    CountriesActions, CountriesActionType, CountriesState,
-    SuggestionsActions, SuggestionsActionType, SuggestionsState
+    CityActions, CityActionType, CityState,
+    CountryActions, CountryActionType, CountryState
 } from "./types"
 
-const countriesState: CountriesState = {
+const countryState: CountryState = {
     countries: []
 }
 
-const suggestionsState: SuggestionsState = {
+const cityState: CityState = {
     country: None.of(),
     suggestions: []
 }
 
-export const countriesReducer = (state = countriesState, action: CountriesActions) => {
+export const cityReducer = (state = cityState, action: CityActions) => {
     switch (action.type) {
-        case CountriesActionType.COUNTRIES_FAILURE:
-            return {
-                countries: []
-            }
-
-        case CountriesActionType.COUNTRIES_LOADING:
-
-        default:
-            return state
-
-        case CountriesActionType.COUNTRIES_RETRIEVED:
-            return {
-                countries: action.payload.countries
-            }
-    }
-}
-
-export const suggestionsReducer = (state = suggestionsState, action: SuggestionsActions) => {
-    switch (action.type) {
-        case SuggestionsActionType.COUNTRY_SELECTED:
+        case CountryActionType.COUNTRY_SELECTED:
             return {
                 country: Option.of(action.payload.country),
                 suggestions: []
             }
 
-        case SuggestionsActionType.SUGGESTIONS_FAILURE:
+        case CityActionType.SUGGESTIONS_FAILURE:
+        case CityActionType.SUGGESTIONS_RESET:
             return {
                 country: state.country,
                 suggestions: []
             }
 
-        case SuggestionsActionType.SUGGESTIONS_LOOKUP:
+        case CityActionType.SUGGESTIONS_LOOKUP:
 
         default:
             return state
 
-        case SuggestionsActionType.SUGGESTIONS_RETRIEVED:
+        case CityActionType.SUGGESTIONS_RETRIEVED:
             return {
                 country: state.country,
                 suggestions: action.payload.suggestions
+            }
+    }
+}
+
+export const countryReducer = (state = countryState, action: CountryActions) => {
+    switch (action.type) {
+        case CountryActionType.COUNTRIES_FAILURE:
+            return {
+                countries: []
+            }
+
+        case CountryActionType.COUNTRIES_LOADING:
+
+        default:
+            return state
+
+        case CountryActionType.COUNTRIES_RETRIEVED:
+            return {
+                countries: action.payload.countries
             }
     }
 }

@@ -1,11 +1,14 @@
 import React from "react"
 
-// import styled from "styled-components"
+import History from "../../containers/history/History"
 
 export default () => (
-    <div className="section">
+    <div>
         <div className="title-border">
             <h1 className="title">History</h1>
+        </div>
+        <div>
+            <History />
         </div>
     </div>
 )

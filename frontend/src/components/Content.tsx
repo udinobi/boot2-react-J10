@@ -1,6 +1,6 @@
 import { Col, Row } from "antd"
 
-import React from "react"
+import * as React from "react"
 
 import styled from "styled-components"
 
@@ -9,36 +9,35 @@ import Location from "./location/Container"
 import Map from "./map/Container"
 import WeatherReport from "./weather/Container"
 
-class Content extends React.Component {
+const gutter = { xs: 8, sm: 16, md: 24, lg: 100 }
 
-    private readonly row = styled(Row)`
+const StyledCol = styled(Col)`
+    @media (max-width: 992px) {
         margin-top: 42px;
-    `
-
-    private readonly gutter = { xs: 8, sm: 16, md: 24, lg: 32 }
-
-    public render() {
-        return (
-            <div className="grid-overflow">
-                <this.row gutter={this.gutter}>
-                    <Col xs={24} sm={24} md={24} lg={12}>
-                        <Location />
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={12}>
-                        <WeatherReport />
-                    </Col>
-                </this.row>
-                <this.row gutter={this.gutter}>
-                    <Col xs={24} sm={24} md={24} lg={8}>
-                        <History />
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={16}>
-                        <Map />
-                    </Col>
-                </this.row>
-            </div>
-        )
     }
-}
+`
 
-export default Content
+const StyledRow = styled(Row)`
+    margin-top: 42px;
+`
+
+export default () => (
+    <div className="grid-overflow">
+        <StyledRow gutter={gutter}>
+            <StyledCol xs={24} sm={24} md={24} lg={12}>
+                <Location />
+            </StyledCol>
+            <StyledCol xs={24} sm={24} md={24} lg={12}>
+                <WeatherReport />
+            </StyledCol>
+        </StyledRow>
+        <StyledRow gutter={gutter}>
+            <StyledCol xs={24} sm={24} md={24} lg={8}>
+                <History />
+            </StyledCol>
+            <StyledCol xs={24} sm={24} md={24} lg={16}>
+                <Map />
+            </StyledCol>
+        </StyledRow>
+    </div>
+)

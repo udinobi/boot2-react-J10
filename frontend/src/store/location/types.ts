@@ -19,71 +19,85 @@ export interface Location {
     country: Country
 }
 
-// Definitions related to the Countries element ----------------------------------------------------
+// Definitions related to the Country element ------------------------------------------------------
 
-export interface CountriesState {
+export interface CountryState {
     countries: Country[]
 }
 
-export enum CountriesActionType {
+export enum CountryActionType {
     COUNTRIES_FAILURE = "COUNTRIES_FAILURE",
     COUNTRIES_LOADING = "COUNTRIES_LOADING",
-    COUNTRIES_RETRIEVED = "COUNTRIES_RETRIEVED"
+    COUNTRIES_RETRIEVED = "COUNTRIES_RETRIEVED",
+    COUNTRY_SELECTED = "COUNTRY_SELECTED"
 }
 
 export interface CountriesFailureAction extends Action {
-    type: CountriesActionType.COUNTRIES_FAILURE
+    type: CountryActionType.COUNTRIES_FAILURE
 }
 
 export interface CountriesLoadingAction extends Action {
-    type: CountriesActionType.COUNTRIES_LOADING
+    type: CountryActionType.COUNTRIES_LOADING
 }
 
 export interface CountriesRetrievedAction extends Action {
-    type: CountriesActionType.COUNTRIES_RETRIEVED
+    type: CountryActionType.COUNTRIES_RETRIEVED
     payload: {
         countries: Country[]
     }
 }
 
-export type CountriesActions =
-    CountriesFailureAction | CountriesLoadingAction | CountriesRetrievedAction
-
-// Definitions related to the City widget ----------------------------------------------------------
-
-export interface SuggestionsState {
-    country: Option<Country>,
-    suggestions: Location[]
-}
-
-export enum SuggestionsActionType {
-    COUNTRY_SELECTED = "COUNTRY_SELECTED",
-    SUGGESTIONS_FAILURE = "SUGGESTIONS_FAILURE",
-    SUGGESTIONS_LOOKUP = "SUGGESTIONS_LOOKUP",
-    SUGGESTIONS_RETRIEVED = "SUGGESTIONS_RETRIEVED"
-}
-
 export interface CountrySelectedAction extends Action {
-    type: SuggestionsActionType.COUNTRY_SELECTED
+    type: CountryActionType.COUNTRY_SELECTED
     payload: {
         country: Country
     }
 }
 
+export type CountryActions =
+    CountriesFailureAction | CountriesLoadingAction | CountriesRetrievedAction
+
+// Definitions related to the City element ---------------------------------------------------------
+
+export interface CityState {
+    country: Option<Country>,
+    suggestions: Location[]
+}
+
+export enum CityActionType {
+    LOCATION_SELECTED = "LOCATION_SELECTED",
+    SUGGESTIONS_FAILURE = "SUGGESTIONS_FAILURE",
+    SUGGESTIONS_LOOKUP = "SUGGESTIONS_LOOKUP",
+    SUGGESTIONS_RESET = "SUGGESTIONS_RESET",
+    SUGGESTIONS_RETRIEVED = "SUGGESTIONS_RETRIEVED"
+}
+
+export interface LocationSelectedAction extends Action {
+    type: CityActionType.LOCATION_SELECTED
+    payload: {
+        location: Location
+    }
+}
+
 export interface SuggestionsFailureAction extends Action {
-    type: SuggestionsActionType.SUGGESTIONS_FAILURE
+    type: CityActionType.SUGGESTIONS_FAILURE
 }
 
 export interface SuggestionsLookupAction extends Action {
-    type: SuggestionsActionType.SUGGESTIONS_LOOKUP
+    type: CityActionType.SUGGESTIONS_LOOKUP
+}
+
+export interface SuggestionsResetAction extends Action {
+    type: CityActionType.SUGGESTIONS_RESET
 }
 
 export interface SuggestionsRetrievedAction extends Action {
-    type: SuggestionsActionType.SUGGESTIONS_RETRIEVED
+    type: CityActionType.SUGGESTIONS_RETRIEVED
     payload: {
         suggestions: Location[]
     }
 }
 
-export type SuggestionsActions =
-    CountrySelectedAction | SuggestionsFailureAction | SuggestionsLookupAction | SuggestionsRetrievedAction
+export type CityActions =
+    CountrySelectedAction | LocationSelectedAction | SuggestionsFailureAction |
+    SuggestionsLookupAction | SuggestionsResetAction | SuggestionsRetrievedAction

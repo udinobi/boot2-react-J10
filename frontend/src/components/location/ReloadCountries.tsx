@@ -3,18 +3,19 @@ import React from "react"
 import { connect } from "react-redux"
 
 import {
-    LoadCountriesDispatchProps,
-    mapCountriesDispatchToProps
-} from "../../store/location/countriesActions"
+    LoadCountryDispatchProps,
+    mapCountryDispatchToProps
+} from "../../store/location/countryActions"
 
-const ReloadCountries = (props: LoadCountriesDispatchProps) => {
+const ReloadCountries = (props: LoadCountryDispatchProps) => {
     {/* tslint:disable:jsx-boolean-value */}
     return <Button
         data-tip data-for="ReloadCountries"
         icon="reload"
         onClick={props.loadCountries}
         shape="circle"
+        type="primary"
     />
 }
 
-export default connect(undefined, mapCountriesDispatchToProps)(ReloadCountries);
+export default connect(undefined, mapCountryDispatchToProps)(ReloadCountries);

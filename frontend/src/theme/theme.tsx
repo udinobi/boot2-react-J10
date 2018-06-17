@@ -23,11 +23,14 @@ export default injectGlobal`
         overflow: hidden;
     }
 
-    .section {
-        background-color: #eee;
-        border-radius: 14px;
-        padding: 2%;
-        padding-bottom: 4%;
+    .history-location-wrapper {
+        margin-top: -2px;
+        opacity: 0;
+        width: 64px;
+    }
+
+    .history-location-item:hover .history-location-wrapper {
+        opacity: 1;
     }
 
     .title-border {
@@ -37,7 +40,7 @@ export default injectGlobal`
     }
 
     .title {
-        font-size: 1rem;
+        font-size: 1.2rem;
 
         @media (min-width: 1200px) {
             font-size: 1.4rem;

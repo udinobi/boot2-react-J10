@@ -1,20 +1,33 @@
 import { Action } from "redux"
 
-import { Location } from "../location/types"
+import { Location, LocationSelectedAction } from "../location/types"
+
+export interface HistoryLocation {
+    location: Location
+}
 
 export interface HistoryState {
     locations: Location[]
 }
 
-export enum ActionType {
-    REMOVE_LOCATION
+export enum HistoryActionType {
+    LOCATION_RELOAD = "LOCATION_RELOAD",
+    LOCATION_REMOVE = "LOCATION_REMOVE"
 }
 
-export interface RemoveLocationAction extends Action {
-    type: ActionType.REMOVE_LOCATION
+export interface LocationReloadAction extends Action {
+    type: HistoryActionType.LOCATION_RELOAD
     payload: {
         location: Location
     }
 }
 
-export type HistoryActions = RemoveLocationAction
+export interface LocationRemoveAction extends Action {
+    type: HistoryActionType.LOCATION_REMOVE
+    payload: {
+        location: Location
+    }
+}
+
+export type HistoryActions =
+    LocationRemoveAction | LocationSelectedAction
