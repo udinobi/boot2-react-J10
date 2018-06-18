@@ -18,9 +18,11 @@
     "tsoption": "^0.6.0"
   },
   "scripts": {
-    "start": "react-app-rewired start --scripts-version react-scripts-ts",
+    "start": "env-cmd .env.dev react-app-rewired start --scripts-version react-scripts-ts",
+    "start:staging": "env-cmd .env.staging react-app-rewired start --scripts-version react-scripts-ts",
+    "start:prod": "env-cmd .env.prod react-app-rewired start --scripts-version react-scripts-ts",
     "build": "react-app-rewired build --scripts-version react-scripts-ts",
-    "test": "react-app-rewired test --env=jsdom --scripts-version react-scripts-ts",
+    "test": "env-cmd .env.dev react-app-rewired test --env=jsdom --scripts-version react-scripts-ts",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "@types/react-tooltip": "^3.3.5",
     "@types/redux-logger": "^3.0.6",
     "@types/redux-thunk": "^2.1.0",
+    "env-cmd": "^8.0.2",
     "react-app-rewired": "^1.5.2",
     "ts-import-plugin": "^1.5.2",
     "typescript": "^2.9.1"

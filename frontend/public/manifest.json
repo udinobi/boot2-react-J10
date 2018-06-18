@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Weather In The World",
+  "name": "Weather In The World. A PoC developed by using React/Typescript and Spring Boot/Java10",
   "icons": [
     {
       "src": "favicon.ico",

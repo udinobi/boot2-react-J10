@@ -24,7 +24,7 @@ const loadCountries = () =>
         dispatch(countriesLoading())
 
         try {
-            const url = "http://localhost:8088/geo/countries"
+            const url = `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOAD_COUNTRIES_PATH}`
             const response: AxiosResponse<CountryState> = await axios.get(url)
             dispatch(countriesRetrieved(response.data))
         } catch (error) {

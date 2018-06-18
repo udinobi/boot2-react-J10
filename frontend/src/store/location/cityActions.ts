@@ -38,7 +38,7 @@ const lookupSuggestions = (country: Country, locationTerm: string) => {
         dispatch(suggestionsLookup())
 
         try {
-            const url = `http://localhost:8088/geo/suggest/${country.code}/${locationTerm}`
+            const url = `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOOKUP_SUGGESTIONS_PATH}/${country.code}/${locationTerm}`
             const response: AxiosResponse<Location[]> = await axios.get(encodeURI(url))
             response.data.forEach(location => location.country = country)
             dispatch(suggestionsRetrieved(response.data))
