@@ -3,6 +3,9 @@
 # Script to load to ES text files (tab/separated fields) containing geographical info for ONE specific country (only!).
 # Files are downloaded from http://download.geonames.org/export/dump/
 
+EShost=192.168.56.10
+ESport=9200
+
 [ $# -gt 1 ] || {
     echo "[Error] Missing argument. e.g. $0  GB  \"Great Britain\""
     exit 1
@@ -48,9 +51,6 @@ txtfile="${countryCode}.txt"
 }
 
 jsonfile=$(mktemp locations.json.XXXXXX)
-
-EShost=192.168.56.10
-ESport=9200
 
 re='^-?[0-9]+([.][0-9]+)?$'
 lon=
