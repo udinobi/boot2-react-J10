@@ -6,7 +6,10 @@ import App from "./components/App"
 
 import store from "./store/store"
 
-import "./theme/theme"
+// css files from node_modules
+import "./style/include.css"
+
+import "./style/style"
 
 import registerServiceWorker from "./registerServiceWorker"
 

@@ -15,6 +15,8 @@ import {
     mapHistoryDispatchToProps
 } from "../../store/history/actions"
 
+import { initialHistoryState } from "../../store/history/reducer"
+
 import { HistoryState } from "../../store/history/types"
 
 import { Location } from "../../store/location/types"
@@ -23,9 +25,8 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
 
     constructor(props: HistoryDispatchProps) {
         super(props)
-        this.state = {
-            locations: []
-        }
+
+        this.state = initialHistoryState
     }
 
     public componentWillReceiveProps(props: HistoryDispatchProps & HistoryState) {
@@ -35,8 +36,10 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
     }
 
     public render() {
+        const height = process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT
         return (
-            <div style={{ overflow: "auto", height: 300 }}>
+            <div style={{ height, overflow: "auto" }}>
+
                 <Scroller
                     loadMore={this.loadMore}
                     initialLoad={false}

@@ -39,6 +39,10 @@ export default injectGlobal`
         padding-bottom: 6px;
     }
 
+    .title-border.map {
+        margin-bottom: 6px;
+    }
+
     .title {
         font-size: 1.2rem;
 
