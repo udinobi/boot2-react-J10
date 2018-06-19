@@ -10,6 +10,9 @@ import { HistoryState } from "./history/types"
 import { cityReducer, countryReducer } from "./location/reducer"
 import { CityState, CountryState } from "./location/types"
 
+import mapReducer from "./map/reducer"
+import { MapState } from "./map/types"
+
 // Additional props for connected React components. This prop is passed by default with `connect()`
 export interface ConnectedReduxProps<T> {
     // Correct types for the `dispatch` prop passed by `react-redux`.
@@ -22,6 +25,7 @@ export interface AppState {
     cityState: CityState
     countryState: CountryState
     historyState: HistoryState
+    mapState: MapState
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property
@@ -30,7 +34,8 @@ export interface AppState {
 const reducers = combineReducers<AppState>({
     cityState: cityReducer,
     countryState: countryReducer,
-    historyState: historyReducer
+    historyState: historyReducer,
+    mapState: mapReducer
 })
 
 // redux-logger has to be the last middleware in chain.

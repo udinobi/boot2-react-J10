@@ -35,7 +35,11 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
 
     constructor(props: LoadCountryDispatchProps) {
         super(props)
-        this.state = { countries: [], country: None.of() }
+
+        this.state = {
+            countries: [],
+            country: None.of()
+        }
     }
 
     public componentDidMount() {

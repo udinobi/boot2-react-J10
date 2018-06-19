@@ -4,7 +4,7 @@ import { HistoryActions, HistoryActionType, HistoryState } from "./types"
 
 import { CityActionType, Location } from "../location/types"
 
-export const initialState: HistoryState = {
+export const initialHistoryState: HistoryState = {
     locations: []
 }
 
@@ -16,7 +16,7 @@ const locationSelected = (locations: Location[], location: Location) => {
 const removeLocation = (locations: Location[], location: Location) =>
     locations.filter(_ => _.geoId !== location.geoId)
 
-const reducer = (state = initialState, action: HistoryActions) => {
+const reducer = (state = initialHistoryState, action: HistoryActions) => {
     switch (action.type) {
         case CityActionType.LOCATION_SELECTED:
             return {

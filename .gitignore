@@ -37,6 +37,7 @@ node/
 node_modules/
 /dist/
 npm-debug.log*
+.sass-cache
 yarn-debug.log*
 yarn-error.log*
 

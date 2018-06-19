@@ -13,7 +13,7 @@ const locationReloadAction: ActionCreator<LocationReloadAction> = (location: Loc
     type: HistoryActionType.LOCATION_RELOAD
 })
 
-const reloadLocation = (location: Location) =>
+export const reloadLocation = (location: Location) =>
     (dispatch: Dispatch<LocationReloadAction>) => dispatch(locationReloadAction(location))
 
 // LocationRemoveAction ----------------------------------------------------------------------------

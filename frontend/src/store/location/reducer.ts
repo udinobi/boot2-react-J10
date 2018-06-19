@@ -9,12 +9,12 @@ const countryState: CountryState = {
     countries: []
 }
 
-const cityState: CityState = {
+export const initialCityState: CityState = {
     country: None.of(),
     suggestions: []
 }
 
-export const cityReducer = (state = cityState, action: CityActions) => {
+export const cityReducer = (state = initialCityState, action: CityActions) => {
     switch (action.type) {
         case CountryActionType.COUNTRY_SELECTED:
             return {
