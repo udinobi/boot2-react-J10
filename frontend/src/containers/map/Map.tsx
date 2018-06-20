@@ -1,5 +1,3 @@
-// import "!file-loader?name=[name].[ext]!../../assets/marker.png"
-
 import ol from "ol"
 import sync from "ol-hashed"
 import Control from "ol/control"
@@ -19,6 +17,8 @@ import View from "ol/view"
 import React from "react"
 import { connect } from "react-redux"
 
+import styled from "styled-components"
+
 import { Option } from "tsoption"
 
 import { AppState } from "../../store/store"
@@ -26,6 +26,7 @@ import { AppState } from "../../store/store"
 import { initialState } from "../../store/map/reducer"
 
 import { MapState } from "../../store/map/types"
+
 
 const minZoomLevel = +(process.env.REACT_APP_MIN_MAP_ZOOM_LEVEL as string)
 
@@ -41,11 +42,14 @@ interface OptionsState {
 
 type MapOptionsState = MapState & OptionsState
 
+
 class MapComponent extends React.Component<{}, MapOptionsState> {
 
     private readonly map: Map
 
     private readonly markerSource = new SourceVector()
+
+    private readonly view: View
 
     constructor() {
         super({})
@@ -70,6 +74,7 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
         })
 
         sync(this.map)
+        this.view = this.map.getView()
     }
 
     public componentDidMount() {
@@ -78,8 +83,8 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
         // Listen to map changes
         this.map.on("moveend", () => {
             this.setState({
-                coord: this.map.getView().getCenter(),
-                zoom: setZoomLevel(this.map.getView().getZoom())
+                coord: this.view.getCenter(),
+                zoom: setZoomLevel(this.view.getZoom())
             })
         })
     }
@@ -110,13 +115,13 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
         const height = process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT
         const coord = this.toLonLat(this.state.coord)
         return (
-            <div>
-                <div style={{ paddingBottom: 6 }}>
+            <MapContainer>
+                <MapInfo>
                     zoom level ({this.state.zoom})
-                    <span style={{ paddingLeft: 52 }}>[{coord[1].toPrecision(8)}, {coord[0].toPrecision(9)}]</span>
-                </div>
+                    <CoordInfo>[{coord[1].toPrecision(8)}, {coord[0].toPrecision(9)}]</CoordInfo>
+                </MapInfo>
                 <div id="map" style={{ height, width: "100%" }} />
-            </div>
+            </MapContainer>
         )
     }
 
@@ -173,10 +178,27 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
 
     private updateMap() {
         const state = this.state
-        this.map.getView().setCenter(state.coord)
-        this.map.getView().setZoom(state.zoom)
+        this.view.setCenter(state.coord)
+        this.view.setZoom(state.zoom)
     }
 }
+
+const CoordInfo = styled.span`
+    padding-left: 38px;
+`
+
+const MapContainer = styled.div`
+    @media (max-width: 991px) {
+        margin-bottom: 18px;
+    }
+`
+
+const MapInfo = styled.div`
+    @media (max-width: 576px) {
+        font-size: 0.9rem;
+    }
+    padding-bottom: 6px;
+`
 
 const mapStateToProps = (state: AppState): MapState => ({
     location: state.mapState.location
@@ -184,9 +206,6 @@ const mapStateToProps = (state: AppState): MapState => ({
 
 export default connect(mapStateToProps)(MapComponent)
 
-  /*
-  navigator.geolocation.getCurrentPosition(pos => {
-    const coords = fromLonLat([pos.coords.longitude, pos.coords.latitude])
-    map.getView().animate({center: coords, zoom: 10})
-  })
-  */
+/* to animate the moving between 2 places you can use...
+       map.getView().animate({center: coords, zoom: 10})
+*/
