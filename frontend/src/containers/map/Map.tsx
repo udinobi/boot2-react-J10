@@ -43,7 +43,7 @@ interface OptionsState {
 type MapOptionsState = MapState & OptionsState
 
 
-class MapComponent extends React.Component<{}, MapOptionsState> {
+class MapComponent extends React.Component<any, MapOptionsState> {
 
     private readonly map: Map
 
@@ -51,8 +51,8 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
 
     private readonly view: View
 
-    constructor() {
-        super({})
+    constructor(props: any) {
+        super(props)
 
         this.state = {
             coord: this.initialCoords(),
@@ -118,7 +118,7 @@ class MapComponent extends React.Component<{}, MapOptionsState> {
             <MapContainer>
                 <MapInfo>
                     zoom level ({this.state.zoom})
-                    <CoordInfo>[{coord[1].toPrecision(8)}, {coord[0].toPrecision(9)}]</CoordInfo>
+                    <CoordInfo>[ {coord[1].toPrecision(8)}, &nbsp;{coord[0].toPrecision(9)} ]</CoordInfo>
                 </MapInfo>
                 <div id="map" style={{ height, width: "100%" }} />
             </MapContainer>

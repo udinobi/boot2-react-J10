@@ -1,6 +1,6 @@
 import { Action } from "redux"
 
-import { Location, LocationSelectedAction } from "../location/types"
+import { Location, LocationSelectedAction } from "../location/city/types"
 
 export interface HistoryLocation {
     location: Location

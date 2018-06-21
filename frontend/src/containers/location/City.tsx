@@ -6,16 +6,16 @@ import styled from "styled-components"
 
 import { Option } from "tsoption"
 
-import { initialCityState } from "../../store/location/reducer"
+import { initialCityState } from "../../store/location/city/reducer"
 
 import { AppState } from "../../store/store"
 
 import {
     CityDispatchProps,
     mapCityDispatchToProps
-} from "../../store/location/cityActions"
+} from "../../store/location/city/actions"
 
-import { CityState, Location } from "../../store/location/types"
+import { CityState, Location } from "../../store/location/city/types"
 
 class City extends React.Component<CityDispatchProps, CityState> {
 
@@ -23,6 +23,8 @@ class City extends React.Component<CityDispatchProps, CityState> {
         font-size: 1.1rem;
         width: 100%;
     `
+
+    private readonly minLenSuggestionPrefix = +(process.env.REACT_APP_MIN_LEN_SUGGESTION_PREFIX as string)
 
     private readonly Option = AutoComplete.Option
 
@@ -61,9 +63,13 @@ class City extends React.Component<CityDispatchProps, CityState> {
     private readonly onSearch = (locationTerm: string) => {
         this.setState({ suggestions: [] })
 
-        if (locationTerm.length > 2) {
+        if (locationTerm.length < this.minLenSuggestionPrefix) {
+            if (this.state.suggestions.length > 0) {
+                this.props.suggestionsReset();
+            }
+        } else {
             this.state.country.map(country =>
-                this.props.lookupSuggestions(country, locationTerm)
+                this.props.suggestionsLookup(country, locationTerm)
             )
         }
     }

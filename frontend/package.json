@@ -14,13 +14,14 @@
     "react-scripts-ts": "2.16.0",
     "react-tooltip": "^3.6.1",
     "redux": "^4.0.0",
-    "redux-logger": "^3.0.6",
+    "redux-observable": "1.0.0-beta.2",
     "redux-thunk": "^2.3.0",
+    "rxjs": "^6.2.1",
     "styled-components": "^3.3.2",
     "tsoption": "^0.6.0"
   },
   "scripts": {
-    "css": "node_modules/node-sass-chokidar/bin/node-sass-chokidar -o src/style --include-path ./node_modules src/style",
+    "css": "./node_modules/node-sass-chokidar/bin/node-sass-chokidar -o src/style --include-path ./node_modules src/style",
     "start": "yarn css && env-cmd .env.dev react-app-rewired start --scripts-version react-scripts-ts",
     "start:staging": "yarn css && env-cmd .env.staging react-app-rewired start --scripts-version react-scripts-ts",
     "start:prod": "yarn css && env-cmd .env.prod react-app-rewired start --scripts-version react-scripts-ts",
@@ -38,11 +39,12 @@
     "@types/react-infinite-scroller": "^1.0.6",
     "@types/react-redux": "^6.0.2",
     "@types/react-tooltip": "^3.3.5",
-    "@types/redux-logger": "^3.0.6",
+    "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-thunk": "^2.1.0",
     "env-cmd": "^8.0.2",
     "node-sass-chokidar": "^1.3.0",
     "react-app-rewired": "^1.5.2",
+    "redux-devtools-extension": "^2.13.2",
     "ts-import-plugin": "^1.5.2",
     "typescript": "^2.9.1"
   }

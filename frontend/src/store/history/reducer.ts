@@ -2,7 +2,7 @@ import { Option } from "tsoption"
 
 import { HistoryActions, HistoryActionType, HistoryState } from "./types"
 
-import { CityActionType, Location } from "../location/types"
+import { CityActionType, Location } from "../location/city/types"
 
 export const initialHistoryState: HistoryState = {
     locations: []

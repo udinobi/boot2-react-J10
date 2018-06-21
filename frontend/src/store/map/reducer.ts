@@ -4,7 +4,7 @@ import { MapActions, MapState } from "./types"
 
 import { HistoryActionType } from "../history/types"
 
-import { CityActionType, Location } from "../location/types"
+import { CityActionType, Location } from "../location/city/types"
 
 export const initialState: MapState = {
     location: None.of(),

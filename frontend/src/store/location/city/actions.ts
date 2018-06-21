@@ -1,12 +1,13 @@
-import axios, { AxiosResponse } from "axios"
 import { ActionCreator, Dispatch } from "redux"
 
 import {
-    CityActions, CityActionType,
-    Country, Location, LocationSelectedAction,
+    CityActionType,
+    Location, LocationSelectedAction,
     SuggestionsFailureAction, SuggestionsLookupAction,
     SuggestionsResetAction, SuggestionsRetrievedAction
-} from './types'
+} from "./types"
+
+import { Country } from "../country/types"
 
 // LocationSelectedAction --------------------------------------------------------------------------
 
@@ -17,36 +18,22 @@ const locationSelectedAction: ActionCreator<LocationSelectedAction> = (location:
 
 export const locationSelected = (location: Location) =>
     (dispatch: Dispatch<LocationSelectedAction | SuggestionsResetAction>) => {
-        dispatch(locationSelectedAction(location))
         dispatch(suggestionsReset())
+        dispatch(locationSelectedAction(location))
     }
 
 // SuggestionsFailureAction ------------------------------------------------------------------------
 
-const suggestionsFailure: ActionCreator<SuggestionsFailureAction> = () => ({
+export const suggestionsFailure: ActionCreator<SuggestionsFailureAction> = () => ({
     type: CityActionType.SUGGESTIONS_FAILURE
 })
 
 // SuggestionsLookupAction -------------------------------------------------------------------------
 
-const suggestionsLookup: ActionCreator<SuggestionsLookupAction> = () => ({
+export const suggestionsLookup: ActionCreator<SuggestionsLookupAction> = (country: Country, locationTerm: string) => ({
+    payload: { country, locationTerm },
     type: CityActionType.SUGGESTIONS_LOOKUP
 })
-
-const lookupSuggestions = (country: Country, locationTerm: string) => {
-    return async (dispatch: Dispatch<CityActions>) => {
-        dispatch(suggestionsLookup())
-
-        try {
-            const url = `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOOKUP_SUGGESTIONS_PATH}/${country.code}/${locationTerm}`
-            const response: AxiosResponse<Location[]> = await axios.get(encodeURI(url))
-            response.data.forEach(location => location.country = country)
-            dispatch(suggestionsRetrieved(response.data))
-        } catch (error) {
-            dispatch(suggestionsFailure())
-        }
-    }
-}
 
 // SuggestionsResetAction ------------------------------------------------------------------------
 
@@ -56,8 +43,8 @@ const suggestionsReset: ActionCreator<SuggestionsResetAction> = () => ({
 
 // SuggestionsRetrievedAction ----------------------------------------------------------------------
 
-const suggestionsRetrieved: ActionCreator<SuggestionsRetrievedAction> = (suggestions: Location[]) => ({
-    payload: { suggestions },
+export const suggestionsRetrieved: ActionCreator<SuggestionsRetrievedAction> = (country: Country, suggestions: Location[]) => ({
+    payload: { country, suggestions },
     type: CityActionType.SUGGESTIONS_RETRIEVED
 })
 
@@ -65,10 +52,12 @@ const suggestionsRetrieved: ActionCreator<SuggestionsRetrievedAction> = (suggest
 
 export interface CityDispatchProps {
     locationSelected: typeof locationSelected
-    lookupSuggestions: typeof lookupSuggestions
+    suggestionsLookup: typeof suggestionsLookup
+    suggestionsReset: typeof suggestionsReset
 }
 
 export const mapCityDispatchToProps = {
     locationSelected,
-    lookupSuggestions
+    suggestionsLookup,
+    suggestionsReset
 }

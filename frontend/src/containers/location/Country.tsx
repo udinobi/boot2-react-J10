@@ -8,12 +8,12 @@ import { None, Option } from "tsoption"
 
 import { AppState } from "../../store/store"
 
-import {
+import { 
     LoadCountryDispatchProps,
     mapCountryDispatchToProps
-} from "../../store/location/countryActions"
+} from "../../store/location/country/actions"
 
-import { Country, CountryState } from "../../store/location/types"
+import { Country, CountryState } from "../../store/location/country/types"
 
 interface SelectionState {
     country: Option<Country>

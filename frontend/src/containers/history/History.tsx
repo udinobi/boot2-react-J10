@@ -19,7 +19,7 @@ import { initialHistoryState } from "../../store/history/reducer"
 
 import { HistoryState } from "../../store/history/types"
 
-import { Location } from "../../store/location/types"
+import { Location } from "../../store/location/city/types"
 
 class History extends React.Component<HistoryDispatchProps, HistoryState> {
 

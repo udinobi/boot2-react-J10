@@ -1,6 +1,6 @@
 import { ActionCreator, Dispatch } from "redux"
 
-import { Location } from "../location/types"
+import { Location } from "../location/city/types"
 
 import {
     HistoryActionType, LocationReloadAction, LocationRemoveAction

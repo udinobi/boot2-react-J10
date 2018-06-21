@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import {
     LoadCountryDispatchProps,
     mapCountryDispatchToProps
-} from "../../store/location/countryActions"
+} from "../../store/location/country/actions"
 
 const ReloadCountries = (props: LoadCountryDispatchProps) => {
     {/* tslint:disable:jsx-boolean-value */}

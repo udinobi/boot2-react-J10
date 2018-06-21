@@ -5,7 +5,7 @@ import {
     CountriesFailureAction, CountriesLoadingAction, CountriesRetrievedAction,
     Country, CountryActions, CountryActionType,
     CountrySelectedAction, CountryState
-} from './types'
+} from "./types"
 
 // CountriesFailureAction --------------------------------------------------------------------------
 

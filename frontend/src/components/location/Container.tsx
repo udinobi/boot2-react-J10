@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import styled from "styled-components"
 
 import City from "../../containers/location/City"
-import Countries from "../../containers/location/Country"
+import Country from "../../containers/location/Country"
 
 import ReloadCountries from "./ReloadCountries"
 
@@ -36,7 +36,7 @@ export default () => (
                 </Row>
                 <Row>
                     <Col xs={21} sm={21} md={21} lg={22}>
-                        <Countries />
+                        <Country />
                     </Col>
                     {/* Even with hidden overflow, I was not able to use gutter for Row, so... rescue to inline styling */}
                     <Col span={1} />
