@@ -21,29 +21,35 @@ import styled from "styled-components"
 
 import { Option } from "tsoption"
 
+import MapInfo, { MapInfoState } from "../../components/map/MapInfo"
+
 import { AppState } from "../../store/store"
 
 import { initialState } from "../../store/map/reducer"
 
-import { MapState } from "../../store/map/types"
+import { MapAndWeatherState } from "../../store/mapAndWeather/types"
 
 
-const minZoomLevel = +(process.env.REACT_APP_MIN_MAP_ZOOM_LEVEL as string)
+export const historyAndMapHeight = Option
+    .of(process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT)
+    .getOrElse("360px")
+
+const minZoomLevel = +Option.of(process.env.REACT_APP_MIN_MAP_ZOOM_LEVEL).getOrElse("2")
 
 const setZoomLevel = (zoom: number) => zoom < minZoomLevel ? minZoomLevel : zoom
 
-const zoomOnLocationChange = setZoomLevel(+(process.env.REACT_APP_LOCATION_MAP_ZOOM_LEVEL as string))
+const zoomOnLocationChange =
+    setZoomLevel(+Option.of(process.env.REACT_APP_LOCATION_MAP_ZOOM_LEVEL).getOrElse("11"))
 
-interface OptionsState {
-    // The coordinate system OpenLayers uses by default for the map view is (Web Mercator EPSG: 3857).
-    coord: ol.Coordinate
-    zoom: number
-}
+const provider = Option
+    .of(process.env.REACT_APP_MAP_TILES_PROVIDER as string)
+    .getOrElse("osm")
+    .toLowerCase()
 
-type MapOptionsState = MapState & OptionsState
+type MapState = MapAndWeatherState & MapInfoState
 
 
-class MapComponent extends React.Component<any, MapOptionsState> {
+class MapComponent extends React.Component<any, MapState> {
 
     private readonly map: Map
 
@@ -93,7 +99,7 @@ class MapComponent extends React.Component<any, MapOptionsState> {
         this.updateMap()
     }
 
-    public componentWillReceiveProps(props: MapOptionsState) {
+    public componentWillReceiveProps(props: MapState) {
         props.location.map(location => {
             const zoom = this.state.zoom <= zoomOnLocationChange
                 ? zoomOnLocationChange
@@ -112,14 +118,10 @@ class MapComponent extends React.Component<any, MapOptionsState> {
     }
 
     public render() {
-        const height = process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT
-        const coord = this.toLonLat(this.state.coord)
+        const height = historyAndMapHeight
         return (
             <MapContainer>
-                <MapInfo>
-                    zoom level ({this.state.zoom})
-                    <CoordInfo>[ {coord[1].toPrecision(8)}, &nbsp;{coord[0].toPrecision(9)} ]</CoordInfo>
-                </MapInfo>
+                <MapInfo coord={this.state.coord} zoom={this.state.zoom} />
                 <div id="map" style={{ height, width: "100%" }} />
             </MapContainer>
         )
@@ -161,8 +163,7 @@ class MapComponent extends React.Component<any, MapOptionsState> {
     })
 
     private source = () => {
-        const provider = Option.of(process.env.REACT_APP_MAP_TILES_PROVIDER as string).getOrElse("osm")
-        switch (provider.toLowerCase()) {
+        switch (provider) {
             case "stamen" :
                 return new XYZSource({
                     url: "http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg"
@@ -173,8 +174,6 @@ class MapComponent extends React.Component<any, MapOptionsState> {
                 return new SourceOSM()
         }
     }
-                                                         // 'EPSG:3857' -> 'EPSG:4326'
-    private toLonLat = (coord: [number, number]) => Proj.toLonLat([ coord[0], coord[1] ])
 
     private updateMap() {
         const state = this.state
@@ -183,24 +182,13 @@ class MapComponent extends React.Component<any, MapOptionsState> {
     }
 }
 
-const CoordInfo = styled.span`
-    padding-left: 38px;
-`
-
 const MapContainer = styled.div`
     @media (max-width: 991px) {
         margin-bottom: 18px;
     }
 `
 
-const MapInfo = styled.div`
-    @media (max-width: 576px) {
-        font-size: 0.9rem;
-    }
-    padding-bottom: 6px;
-`
-
-const mapStateToProps = (state: AppState): MapState => ({
+const mapStateToProps = (state: AppState): MapAndWeatherState => ({
     location: state.mapState.location
 })
 

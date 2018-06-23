@@ -19,12 +19,17 @@ const countriesLoading: ActionCreator<CountriesLoadingAction> = () => ({
     type: CountryActionType.COUNTRIES_LOADING
 })
 
+// Not checking yet, at this stage in our CSR app, if these properties are set or not.
+// In a future SSR rendering feature branch we can also consider to implement logging
+// to the server-side RT.
+const url =
+    `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOAD_COUNTRIES_PATH}`
+
 const loadCountries = () =>
     async (dispatch: Dispatch<CountryActions>) => {
         dispatch(countriesLoading())
 
         try {
-            const url = `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOAD_COUNTRIES_PATH}`
             const response: AxiosResponse<CountryState> = await axios.get(url)
             dispatch(countriesRetrieved(response.data))
         } catch (error) {

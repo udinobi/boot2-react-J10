@@ -10,6 +10,8 @@ import { AppState } from "../../store/store"
 import ReloadLocation from "./ReloadLocation"
 import RemoveLocation from "./RemoveLocation"
 
+import { historyAndMapHeight } from "../map/Map"
+
 import {
     HistoryDispatchProps,
     mapHistoryDispatchToProps
@@ -36,7 +38,8 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
     }
 
     public render() {
-        const height = process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT
+        const height = historyAndMapHeight
+
         return (
             <div style={{ height, overflow: "auto" }}>
 
@@ -61,13 +64,13 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
                 <RemoveLocation location={location} />
                 <ReactTooltip id="RemoveLocation">
                     <div>Remove this location</div>
-                    <div>&nbsp; from the History.</div>
+                    <div>{"\u00a0"} from the History.</div>
                 </ReactTooltip>
     
                 <ReloadLocation location={location} />
                 <ReactTooltip id="ReloadLocation">
                     <div>Reload the weather info</div>
-                    <div>&nbsp; for this location.</div>
+                    <div>{"\u00a0"} for this location.</div>
                 </ReactTooltip>
             </div>
 

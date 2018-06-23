@@ -1,10 +1,6 @@
-import { CountryActions, CountryActionType, CountryState } from "./types"
+import { CountryActions, CountryActionType } from "./types"
 
-const countryState: CountryState = {
-    countries: []
-}
-
-export const countryReducer = (state = countryState, action: CountryActions) => {
+const reducer = (state = { countries: [] }, action: CountryActions) => {
     switch (action.type) {
         case CountryActionType.COUNTRIES_FAILURE:
             return {
@@ -22,3 +18,5 @@ export const countryReducer = (state = countryState, action: CountryActions) => 
             }
     }
 }
+
+export default reducer

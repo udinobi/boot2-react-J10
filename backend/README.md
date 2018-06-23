@@ -32,7 +32,7 @@ cd backend
 ./mvnw clean package
 ```
 
-- *NOTE*: if Java 10 is not your default runtime run...
+- *NOTE*: if Java 10 is not your default runtime run (Mac/Linux)...
 
 ```shell
 cd backend
@@ -46,7 +46,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-- *NOTE*: if Java 10 is not your default runtime run...
+- *NOTE*: if Java 10 is not your default runtime run (Mac/Linux)...
 
 ```shell
 cd backend

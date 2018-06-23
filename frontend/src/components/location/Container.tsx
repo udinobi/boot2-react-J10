@@ -45,7 +45,7 @@ export default () => (
                         <ReactTooltip id="ReloadCountries">
                             <div>Reload available countries</div>
                             <div>(because a new country was</div>
-                            <div>&nbsp;probably added to the DB)</div>
+                            <div>{"\u00a0"}probably added to the DB)</div>
                         </ReactTooltip>
                     </Col>
                 </Row>

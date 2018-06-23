@@ -11,33 +11,41 @@ import thunk from "redux-thunk"
 import historyReducer from "./history/reducer"
 import { HistoryState } from "./history/types"
 
-import { lookupSuggestions } from "./location/city/epics"
-import { cityReducer } from "./location/city/reducer"
+import lookupSuggestions from "./location/city/epics"
+import cityReducer from "./location/city/reducer"
 import { CityState } from "./location/city/types"
 
-import { countryReducer } from "./location/country/reducer"
+import countryReducer from "./location/country/reducer"
 import { CountryState } from "./location/country/types"
 
 import mapReducer from "./map/reducer"
-import { MapState } from "./map/types"
-  
+
+import { MapAndWeatherState } from "./mapAndWeather/types"
+
+import retrieveWeatherData from "./weather/epics"
+import weatherReducer from "./weather/reducer"
+import { WeatherState } from "./weather/types"
+
 export interface AppState {
     cityState: CityState
     countryState: CountryState
     historyState: HistoryState
-    mapState: MapState
+    mapState: MapAndWeatherState
+    weatherState: WeatherState
 }
 
 const reducers = combineReducers<AppState>({
     cityState: cityReducer,
     countryState: countryReducer,
     historyState: historyReducer,
-    mapState: mapReducer
+    mapState: mapReducer,
+    weatherState: weatherReducer
 })
 
-const epics = combineEpics(lookupSuggestions)
+const epics = combineEpics(lookupSuggestions, retrieveWeatherData)
 
 const epicMiddleware = createEpicMiddleware()
+
 let storeEnhancer = applyMiddleware(
     thunk, // Has to be placed before the redux-observable middleware
     epicMiddleware

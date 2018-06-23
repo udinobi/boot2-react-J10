@@ -1,4 +1,3 @@
-
 import { Epic, ofType } from "redux-observable"
 import { of } from "rxjs"
 import { ajax } from "rxjs/ajax"
@@ -13,10 +12,13 @@ import {
 
 import { CountryActionType } from "../country/types"
 
+// Not checking yet, at this stage in our CSR app, if these properties are set or not.
+// In a future SSR rendering feature branch we can also consider to implement logging
+// to the server-side RT.
+const url =
+    `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOOKUP_SUGGESTIONS_PATH}/`
 
-const url = `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOOKUP_SUGGESTIONS_PATH}/`
-
-export const lookupSuggestions: Epic<CityActions> = action$ =>
+const lookupSuggestions: Epic<CityActions> = action$ =>
     action$.pipe(
         ofType(CityActionType.SUGGESTIONS_LOOKUP),
         debounceTime(400),
@@ -34,3 +36,5 @@ export const lookupSuggestions: Epic<CityActions> = action$ =>
             )
         )
     )
+
+export default lookupSuggestions

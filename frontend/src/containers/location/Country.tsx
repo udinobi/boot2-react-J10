@@ -38,7 +38,7 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
 
         this.state = {
             countries: [],
-            country: None.of()
+            country: None.of<Country>()
         }
     }
 

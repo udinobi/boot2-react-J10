@@ -65,7 +65,7 @@ public class Boot2ReactApplicationIT {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        String uri = "http://localhost:" + port + "/geo/suggest/TH/Bangkok";
+        String uri = "http://localhost:" + port + "/geo/suggest/SG/somapah";
         ResponseEntity<String> response = new TestRestTemplate().exchange(uri, HttpMethod.GET, entity, String.class);
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));

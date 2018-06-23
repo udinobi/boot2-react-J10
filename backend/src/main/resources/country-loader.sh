@@ -11,7 +11,7 @@ ESport=9200
     exit 1
 }
 
-outdir=$(mktemp -d)
+outdir=$(mktemp -d .country-loader.XXXXXX)
 
 pushd "$outdir"
 
@@ -58,60 +58,105 @@ lon=
 while IFS=$'\t' read -ra fields; do
     len=${#fields[@]}
     echo "{\"index\":{}}" >> ${jsonfile}
-    echo -n "{\"geoId\":${fields[0]},\"name\":{\"input\":[\"${fields[1]}\"]}," >> ${jsonfile}
+    printf "{\"geoId\":${fields[0]},\"name\":{\"input\":[\"${fields[1]}\"]}," >> ${jsonfile}
 
     lon=${fields[5]}
     if [[ ${lon} =~ ${re} ]]; then
-        echo -n "\"location\":{\"lat\":${fields[4]},\"lon\":${lon}}," >> ${jsonfile}
+        printf "\"location\":{\"lat\":${fields[4]},\"lon\":${lon}}," >> ${jsonfile}
     else
         # alternatenames is empty
-        echo -n "\"location\":{\"lat\":${fields[3]},\"lon\":${fields[4]}}," >> ${jsonfile}
+        printf "\"location\":{\"lat\":${fields[3]},\"lon\":${fields[4]}}," >> ${jsonfile}
     fi
 
     echo "\"tz\":\"${fields[len-2]}\",\"lastMod\":\"${fields[len-1]}\"}" >> ${jsonfile}
 done < ${txtfile}
 
-code=$(curl -s -w "%{http_code}" http://${EShost}:${ESport}/locations -o /dev/null)
+printf "\n\nRemoving, if existing index \"${countryCode}\" ...\n"
 
-[ "$code" != "200" ] && curl -XPUT "http://${EShost}:${ESport}/locations"
+xname=$(echo ${countryCode} | tr '[A-Z]' '[a-z]')
 
-curl -XPUT "http://${EShost}:${ESport}/locations/${countryCode}/_mapping" -H "content-type: application/json" -d @- <<EOF
-{
-    "${countryCode}": {
-        "dynamic": "strict",
-        "_meta": {
-            "country": "${country}"
-        },
-        "properties": {
-            "geoId":    { "type": "integer" },
-            "name":     { "type": "completion" },
-            "location": { "type": "geo_point" },
-            "tz":       { "type": "text" },
-            "lastMod":  { "type": "date", "format" : "yyyy-MM-dd" }
+curl -XDELETE "http://${EShost}:${ESport}/${xname}" -o /dev/null
+
+printf "\n\nGenerating index \"${countryCode}\" ...\n"
+
+code=$(curl -s -w "%{http_code}" -o /dev/null \
+            -XPUT "http://${EShost}:${ESport}/${xname}" -H "content-type: application/json" -d @- <<EOF
+    {
+        "mappings": {
+            "doc": {
+                "properties": {
+                    "geoId":    { "type": "integer" },
+                    "name":     { "type": "completion" },
+                    "location": { "type": "geo_point" },
+                    "tz":       { "type": "text" },
+                    "lastMod":  { "type": "date", "format" : "yyyy-MM-dd" }
+                }
+            }
         }
     }
-}
 EOF
+)
 
-curl -H "Content-Type: application/json" -XPOST "http://${EShost}:${ESport}/locations/${countryCode}/_bulk" --data-binary @${jsonfile}
+if [ "$code" != "200" ]; then
+    rm -fr "$outdir"
+    exit 1
+fi
 
-popd
+printf "\n\nLoading JSON data in bulk...\n\n"
+
+curl -o /dev/null -H "Content-Type: application/json" \
+     -XPOST "http://${EShost}:${ESport}/${xname}/doc/_bulk" --data-binary @${jsonfile}
+
+code=$(curl -s -w "%{http_code}" -o /dev/null http://${EShost}:${ESport}/countries)
+
+if [ "$code" != "200" ]; then
+    printf "\n\nGenerating index \"countries\" ...\n"
+
+    code=$(curl -s -w "%{http_code}" -o /dev/null \
+                -XPUT "http://${EShost}:${ESport}/countries" -H "content-type: application/json" -d @- <<EOF
+    {
+        "mappings": {
+            "doc": {
+                "properties": {
+                    "code": { "type": "text" },
+                    "name": { "type": "text" }
+                }
+            }
+        }
+    }
+EOF
+)
+
+    if [ "$code" != "200" ]; then
+        rm -fr "$outdir"
+        exit 1
+    fi
+fi
+
+printf "\n\nAdding \"${country}\" to index \"countries\" ...\n\n"
+
+curl -s -o /dev/null -XPOST "http://${EShost}:${ESport}/countries/doc" -H "content-type: application/json" \
+     -d "{ \"code\" : \"${countryCode}\", \"name\" : \"${country}\" }"
+
+popd > /dev/null
 rm -fr "$outdir"
 exit 0
 
 # e.g. :
-#    curl -XPOST \
-#         -H "Content-Type: application/json" \
-#         "http://${EShost}:${ESport}/locations/${countryCode}/_search" \
-#         --data '{
-#              "suggest" : { "location-suggest-fuzzy" : {
-#                  "prefix" : "Bangkok",
-#                  "completion" : {
-#                      "field" : "name",
-#                      "fuzzy" : {
-#                          "fuzziness" : 1
-#                      },
-#                      "size" : 10
-#                  }
-#              }}
-#          }' | jq .
+# To retrieve all countries...
+#
+# http 'http://192.168.56.10:9200/countries/_search?pretty=true&size=1000&q=*:*'
+#
+# curl -XPOST -H "Content-Type: application/json" "http://192.168.56.10:9200/SG/doc/_search" \
+#     --data '{
+#         "suggest" : { "fuzzy-location-suggest" : {
+#             "prefix" : "somapah",
+#             "completion" : {
+#                 "field" : "name",
+#                 "fuzzy" : {
+#                     "fuzziness" : 1
+#                 },
+#                 "size" : 10
+#             }
+#         }}
+#     }' | jq .

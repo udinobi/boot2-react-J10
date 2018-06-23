@@ -10,7 +10,7 @@ When the location is selected
 
 - related weather information are retrieved from OpenWeatherMap and shown in a "Weather" section
 - the location is geographically shown in a "Map" section.
-- the location is added to a selection history, from where it can be selected again
+- the location is added to a selection History, from where it can be selected again. Weather information for every location are also cached to the History to save api calls to OWM.
 
 ![selection-history](doc-assets/02-selection-history-640x387.png)
 

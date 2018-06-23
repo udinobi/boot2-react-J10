@@ -24,14 +24,15 @@ class City extends React.Component<CityDispatchProps, CityState> {
         width: 100%;
     `
 
-    private readonly minLenSuggestionPrefix = +(process.env.REACT_APP_MIN_LEN_SUGGESTION_PREFIX as string)
+    private readonly minLenSuggestionPrefix =
+        +Option.of(process.env.REACT_APP_MIN_LEN_SUGGESTION_PREFIX).getOrElse("3")
 
     private readonly Option = AutoComplete.Option
 
     constructor(props: CityDispatchProps) {
         super(props)
 
-				this.state = initialCityState
+		this.state = initialCityState
         this.onSelect = this.onSelect.bind(this)
     }
 
