@@ -26,6 +26,12 @@
   version "23.0.0"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.0.0.tgz#760cac74f00bb9c3075587716d2b3b4435663bc0"
 
+"@types/moment-timezone@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@types/moment-timezone/-/moment-timezone-0.5.6.tgz#21341f5cbeeca6e773702b24fffd39f06bf6e203"
+  dependencies:
+    moment ">=2.14.0"
+
 "@types/node@*", "@types/node@^10.3.2":
   version "10.3.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.2.tgz#3840ec6c12556fdda6e0e6d036df853101d732a4"
@@ -4990,7 +4996,13 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-moment@2.x, moment@^2.19.3:
+moment-timezone@^0.5.21:
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.21.tgz#3cba247d84492174dbf71de2a9848fa13207b845"
+  dependencies:
+    moment ">= 2.9.0"
+
+moment@2.x, "moment@>= 2.9.0", moment@>=2.14.0, moment@^2.19.3, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
@@ -7925,6 +7937,10 @@ ts-loader@^2.3.7:
     loader-utils "^1.0.2"
     semver "^5.0.1"
 
+ts-option@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/ts-option/-/ts-option-1.1.5.tgz#80ab18a122e9540f702962374417ca8684147649"
+
 tsconfig-paths-webpack-plugin@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths-webpack-plugin/-/tsconfig-paths-webpack-plugin-2.0.0.tgz#7652dc684bb3206c8e7e446831ca01cbf4d11772"
@@ -7971,10 +7987,6 @@ tslint@^5.7.0:
     semver "^5.3.0"
     tslib "^1.8.0"
     tsutils "^2.12.1"
-
-tsoption@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/tsoption/-/tsoption-0.6.0.tgz#ff020efd62f3de4a1ecee2d436b4a2652f18010a"
 
 tsutils@^2.12.1, tsutils@^2.13.1:
   version "2.27.1"

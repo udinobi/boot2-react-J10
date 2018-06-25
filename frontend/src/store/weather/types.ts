@@ -1,6 +1,6 @@
 import { Action } from "redux"
 
-import { Option } from "tsoption"
+import { Option } from "ts-option"
 
 import { Location } from "../location/city/types"
 
@@ -11,11 +11,6 @@ export interface Weather {
     icon: string
     id: number
     main: string
-}
-
-export interface Sys {
-    sunrise: number
-    sunset: number
 }
 
 export interface WeatherData {
@@ -48,7 +43,10 @@ export interface WeatherData {
         h3: string
         val: number
     }
-    sys: Sys
+    sys: {
+        sunrise: number
+        sunset: number
+    }
     visibility: number
     weather: Weather[]
     wind: {
@@ -59,7 +57,7 @@ export interface WeatherData {
 
 export interface WeatherState extends MapAndWeatherState {
     askingWeatherDataToOWM: boolean
-    requestTime: Option<Date>
+    lastUpdate: Option<Date>
     weatherData: Option<WeatherData>
 }
 

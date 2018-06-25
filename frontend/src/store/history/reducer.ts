@@ -1,31 +1,75 @@
-import { Option } from "tsoption"
+import { none, option } from "ts-option"
 
-import { HistoryActions, HistoryActionType, HistoryState } from "./types"
+import { HistoryActions, HistoryActionType, HistoryItem, HistoryState } from "./types"
 
 import { CityActionType, Location } from "../location/city/types"
 
+import { WeatherActionType, WeatherData } from "../weather/types"
+
 export const initialHistoryState: HistoryState = {
-    locations: []
+    items: []
 }
 
-const locationSelected = (locations: Location[], location: Location) => {
-    const inHistory = Option.of(locations.find(_ => _.geoId === location.geoId))
-    return inHistory.nonEmpty() ? locations : [ location, ...locations ]
+const locationSelected = (items: HistoryItem[], location: Location) => {
+    const inHistory = option(items.find(_ => _.location.geoId === location.geoId))
+    return inHistory.isDefined
+        ? items
+        : [ {
+                lastUpdate: none,
+                location,
+                weatherData: none
+            }, ...items
+        ]
 }
 
-const removeLocation = (locations: Location[], location: Location) =>
-    locations.filter(_ => _.geoId !== location.geoId)
+const removeLocation = (items: HistoryItem[], location: Location) =>
+    items.filter(_ => _.location.geoId !== location.geoId)
+
+const updateWeatherData = (items: HistoryItem[], location: Location, weatherData: WeatherData) => {
+    let found = false
+    const newItem = {
+        lastUpdate: option(new Date()),
+        location,
+        weatherData: option(weatherData)
+    }
+
+    // Have to keep the order of the items in the history.
+    const newItems = items.map(_ => {
+        if (_.location.geoId !== location.geoId) {
+            return _
+        }
+
+        found = true
+        return newItem
+    })
+
+    if (!found) {
+        // Was the location item removed before getting back the weather data from OWM ?
+        newItems.push(newItem)
+    }
+
+    return newItems
+}
 
 const reducer = (state = initialHistoryState, action: HistoryActions) => {
     switch (action.type) {
         case CityActionType.LOCATION_SELECTED:
             return {
-                locations: locationSelected(state.locations, action.payload.location)
+                items: locationSelected(state.items, action.payload.location)
             }
 
         case HistoryActionType.LOCATION_REMOVE:
             return {
-                locations: removeLocation(state.locations, action.payload.location)
+                items: removeLocation(state.items, action.payload.location)
+            }
+
+        case WeatherActionType.WEATHER_DATA_RETRIEVED:
+            return {
+                items: updateWeatherData(
+                    state.items,
+                    action.payload.location,
+                    action.payload.weatherData
+                )
             }
 
         default:

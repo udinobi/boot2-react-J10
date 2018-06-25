@@ -1,10 +1,10 @@
-import { None, Option } from "tsoption"
+import { none, option } from "ts-option"
 
-import { Country, CountryActionType } from "../country/types"
+import { CountryActionType } from "../country/types"
 import { CityActions, CityActionType, CityState } from "./types"
 
 export const initialCityState: CityState = {
-    country: None.of<Country>(),
+    country: none,
     suggestions: []
 }
 
@@ -12,7 +12,7 @@ const reducer = (state = initialCityState, action: CityActions) => {
     switch (action.type) {
         case CountryActionType.COUNTRY_SELECTED:
             return {
-                country: Option.of(action.payload.country),
+                country: option(action.payload.country),
                 suggestions: []
             }
 

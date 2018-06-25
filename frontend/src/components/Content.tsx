@@ -13,12 +13,12 @@ const gutter = { xs: 8, sm: 16, md: 24, lg: 100 }
 
 const StyledCol = styled(Col)`
     @media (max-width: 992px) {
-        margin-top: 42px;
+        margin-top: 20px;
     }
 `
 
 const StyledRow = styled(Row)`
-    margin-top: 42px;
+    margin-top: 20px;
 `
 
 export default () => (

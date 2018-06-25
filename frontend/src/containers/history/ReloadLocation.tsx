@@ -7,11 +7,11 @@ import {
     mapHistoryDispatchToProps
 } from "../../store/history/actions"
 
-import { HistoryLocation } from "../../store/history/types"
+import { HistoryItem } from "../../store/history/types"
 
-class ReloadLocation extends React.Component<HistoryDispatchProps & HistoryLocation> {
+class ReloadLocation extends React.Component<HistoryDispatchProps & HistoryItem> {
 
-    constructor(props: HistoryDispatchProps & HistoryLocation) {
+    constructor(props: HistoryDispatchProps & HistoryItem) {
         super(props)
     }
 
@@ -23,7 +23,7 @@ class ReloadLocation extends React.Component<HistoryDispatchProps & HistoryLocat
                     data-tip data-for="ReloadLocation"
                     icon="reload"
                     /* tslint:disable:jsx-no-lambda */
-                    onClick={() => this.props.reloadLocation(this.props.location)}
+                    onClick={() => this.props.reloadLocation(this.props)}
                     shape="circle"
                     size="small"
                     type="primary"

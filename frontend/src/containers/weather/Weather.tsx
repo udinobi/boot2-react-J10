@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { Option } from "tsoption"
+import { option } from "ts-option"
 
 import CenteredDiv from "../../components/lib/CenteredDiv"
 import Spinner from "../../components/lib/Spinner"
@@ -19,7 +19,7 @@ import { WeatherState } from "../../store/weather/types"
 
 class WeatherComponent extends React.Component<WeatherDispatchProps, WeatherState> {
 
-    private readonly owmApiKey = Option.of(process.env.REACT_APP_OWM_API_KEY)
+    private readonly owmApiKey = option(process.env.REACT_APP_OWM_API_KEY)
     
     constructor(props: WeatherDispatchProps) {
         super(props)
@@ -30,8 +30,8 @@ class WeatherComponent extends React.Component<WeatherDispatchProps, WeatherStat
     public componentWillReceiveProps(props: WeatherDispatchProps & WeatherState) {
         this.setState({
             askingWeatherDataToOWM: props.askingWeatherDataToOWM,
+            lastUpdate: props.lastUpdate,
             location: props.location,
-            requestTime: props.requestTime,
             weatherData: props.weatherData
         })
 

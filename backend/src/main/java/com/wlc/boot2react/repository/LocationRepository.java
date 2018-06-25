@@ -51,6 +51,10 @@ public class LocationRepository {
     private static final String COUNTRY_INDEX_NAME = "countries";
     private static final String TYPE_NAME = "doc";
 
+    private static final Fuzziness[] fuzziness = { Fuzziness.ZERO, Fuzziness.ONE, Fuzziness.TWO };
+    private static final int INITIAL_FUZZINESS = 0;
+    private static final int MAX_FUZZINESS = 2;
+
     @Autowired
     Client client;
 
@@ -76,29 +80,40 @@ public class LocationRepository {
     }
 
     public Stream<Optional<SuggestedCompletionLocation>> suggestByLocation(String countryCode, String locationTerm, int maxSuggestions) {
+        List<? extends Suggestion.Entry.Option> suggestions =
+            getSuggestions(countryCode, locationTerm, maxSuggestions, INITIAL_FUZZINESS);
+
+        return suggestions.stream().map(option -> mapToSuggestedLocation(((CompletionSuggestion.Entry.Option) option)
+            .getHit()
+            .getSourceAsString()
+        ));
+    }
+
+    public List<? extends Suggestion.Entry.Option> getSuggestions(
+        String countryCode, String locationTerm, int maxSuggestions, int xFuzziness) {
+
         SuggestionBuilder suggestionBuilder = SuggestBuilders
             .completionSuggestion("name")
-            .prefix(locationTerm, Fuzziness.ZERO)
+            .prefix(locationTerm, fuzziness[ xFuzziness ])
             .size(maxSuggestions);
 
         SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion(TYPE_NAME, suggestionBuilder);
 
-        SearchResponse response = client
+        SearchResponse response =  client
             .prepareSearch(countryCode.toLowerCase())
-            .setFetchSource(new String[] { "geoId", "name", "location" }, null)
+            .setFetchSource(new String[] { "geoId", "name", "location", "tz" }, null)
             .suggest(suggestBuilder).get();
 
-        List<? extends Suggestion.Entry.Option> options = response
+        List<? extends Suggestion.Entry.Option> suggestions = response
             .getSuggest()
             .getSuggestion(TYPE_NAME)
             .getEntries()
             .get(0)
             .getOptions();
 
-        return options.stream().map(option -> mapToSuggestedLocation(((CompletionSuggestion.Entry.Option) option)
-            .getHit()
-            .getSourceAsString()
-        ));
+        return xFuzziness == MAX_FUZZINESS || suggestions.size() > 0
+            ? suggestions
+            : getSuggestions(countryCode, locationTerm, maxSuggestions, xFuzziness + 1);
     }
 
     private Optional<SuggestedCompletionLocation> mapToSuggestedLocation(String json) {

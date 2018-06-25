@@ -19,9 +19,7 @@ import {
 
 import { initialHistoryState } from "../../store/history/reducer"
 
-import { HistoryState } from "../../store/history/types"
-
-import { Location } from "../../store/location/city/types"
+import { HistoryItem, HistoryState } from "../../store/history/types"
 
 class History extends React.Component<HistoryDispatchProps, HistoryState> {
 
@@ -33,7 +31,7 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
 
     public componentWillReceiveProps(props: HistoryDispatchProps & HistoryState) {
         this.setState({
-            locations: props.locations
+            items: props.items
         })
     }
 
@@ -50,7 +48,7 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
                     useWindow={false}
                 >
                     <List
-                        dataSource={this.state.locations}
+                        dataSource={this.state.items}
                         renderItem={this.itemsFromLocations}
                     />
                 </Scroller>
@@ -58,23 +56,23 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
         )
     }
 
-    private readonly itemsFromLocations = (location: Location) =>
-        <List.Item key={location.geoId} className="history-location-item">
+    private readonly itemsFromLocations = (item: HistoryItem) =>
+        <List.Item key={item.location.geoId} className="history-location-item">
             <div className="history-location-wrapper">
-                <RemoveLocation location={location} />
+                <RemoveLocation {...item} />
                 <ReactTooltip id="RemoveLocation">
                     <div>Remove this location</div>
                     <div>{"\u00a0"} from the History.</div>
                 </ReactTooltip>
     
-                <ReloadLocation location={location} />
+                <ReloadLocation {...item} />
                 <ReactTooltip id="ReloadLocation">
                     <div>Reload the weather info</div>
                     <div>{"\u00a0"} for this location.</div>
                 </ReactTooltip>
             </div>
 
-            {`${location.name} (${location.country.code}) [${location.coord.lat},${location.coord.lon}]`}
+            {`${item.location.name} (${item.location.country.code}) [${item.location.coord.lat},${item.location.coord.lon}]`}
         </List.Item>
 
     /* tslint:disable:no-empty */
@@ -82,7 +80,7 @@ class History extends React.Component<HistoryDispatchProps, HistoryState> {
 }
 
 const mapStateToProps = (state: AppState): HistoryState => ({
-    locations: state.historyState.locations
+    items: state.historyState.items
 })
 
 export default connect(mapStateToProps, mapHistoryDispatchToProps)(History);

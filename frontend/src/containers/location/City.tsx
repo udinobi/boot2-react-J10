@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 import styled from "styled-components"
 
-import { Option } from "tsoption"
+import { option } from "ts-option"
 
 import { initialCityState } from "../../store/location/city/reducer"
 
@@ -25,7 +25,7 @@ class City extends React.Component<CityDispatchProps, CityState> {
     `
 
     private readonly minLenSuggestionPrefix =
-        +Option.of(process.env.REACT_APP_MIN_LEN_SUGGESTION_PREFIX).getOrElse("3")
+        +option(process.env.REACT_APP_MIN_LEN_SUGGESTION_PREFIX).getOrElse("3")
 
     private readonly Option = AutoComplete.Option
 
@@ -76,8 +76,8 @@ class City extends React.Component<CityDispatchProps, CityState> {
     }
 
     private readonly onSelect = (value: string) =>
-        Option.of(this.state.suggestions[+value])
-            .map(suggestion => this.props.locationSelected(suggestion))
+        option(this.state.suggestions[+value])
+            .map((suggestion: Location) => this.props.locationSelected(suggestion))
 }
 
 const mapStateToProps = (state: AppState): CityState => ({

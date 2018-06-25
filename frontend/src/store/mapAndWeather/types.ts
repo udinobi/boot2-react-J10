@@ -1,4 +1,4 @@
-import { Option } from "tsoption"
+import { Option } from "ts-option"
 
 import { LocationReloadAction } from "../history/types"
 

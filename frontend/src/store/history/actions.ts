@@ -3,18 +3,18 @@ import { ActionCreator, Dispatch } from "redux"
 import { Location } from "../location/city/types"
 
 import {
-    HistoryActionType, LocationReloadAction, LocationRemoveAction
+    HistoryActionType, HistoryItem, LocationReloadAction, LocationRemoveAction
 } from './types'
 
 // LocationReloadAction ----------------------------------------------------------------------------
 
-const locationReloadAction: ActionCreator<LocationReloadAction> = (location: Location) => ({
-    payload: { location },
+const locationReloadAction: ActionCreator<LocationReloadAction> = (history: HistoryItem) => ({
+    payload: { history },
     type: HistoryActionType.LOCATION_RELOAD
 })
 
-export const reloadLocation = (location: Location) =>
-    (dispatch: Dispatch<LocationReloadAction>) => dispatch(locationReloadAction(location))
+export const reloadLocation = (history: HistoryItem) =>
+    (dispatch: Dispatch<LocationReloadAction>) => dispatch(locationReloadAction(history))
 
 // LocationRemoveAction ----------------------------------------------------------------------------
 

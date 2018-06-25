@@ -3,6 +3,7 @@ import { injectGlobal } from "styled-components"
 export default injectGlobal`
 
     @import url("https://fonts.googleapis.com/css?family=Raleway");
+    @import url("http://fonts.googleapis.com/css?family=Roboto");
 
     body {
         border: 0;
@@ -12,12 +13,23 @@ export default injectGlobal`
         padding: 0;
     }
 
+    .ant-list-item {
+        font-size: 1.1rem;
+    }
+
     .ant-select-selection--single,
     .ant-select-auto-complete.ant-select .ant-input,
     .ant-select-auto-complete.ant-select .ant-select-selection__rendered {
+        font-size: 1.1rem;
         height: 36px;
         line-height: 36px;
     }
+
+    .day-under-5-icon-color  { color: #0093DC; }
+    .day-under-12-icon-color { color: #3A8183; }
+    .day-under-22-icon-color { color: #E9BD15; }
+    .day-under-32-icon-color { color: #EE671E; }
+    .day-from-32-icon-color  { color: #F21822; }
 
     .grid-overflow {
         overflow: hidden;
@@ -31,6 +43,10 @@ export default injectGlobal`
 
     .history-location-item:hover .history-location-wrapper {
         opacity: 1;
+    }
+
+    .night-icon-color {
+        color: #00008B; /* darkblue */
     }
 
     .title-border {

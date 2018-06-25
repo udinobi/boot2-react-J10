@@ -12,7 +12,7 @@ export default (props: WeatherState) =>
             .map(weatherData => <WeatherContainer
                 /* tslint:disable:jsx-key */
                     location={location}
-                    requestTime={props.requestTime}
+                    lastUpdate={props.lastUpdate}
                     weatherData={weatherData}
                 />
             )

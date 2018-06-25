@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 import styled from "styled-components"
 
-import { None, Option } from "tsoption"
+import { none, Option, option } from "ts-option"
 
 import { AppState } from "../../store/store"
 
@@ -38,7 +38,7 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
 
         this.state = {
             countries: [],
-            country: None.of<Country>()
+            country: none
         }
     }
 
@@ -49,13 +49,13 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
     public componentWillReceiveProps(props: LoadCountryDispatchProps & CountryState) {
         if (this.state.countries !== props.countries) {
             const country = props.countries.length === 0
-                ? Option.of<Country>()               // No countries... need to clear <select>
+                ? option<Country>()               // No countries... need to clear <select>
                 : this.state.country.flatMap(_1 =>   // Have countries and if have current selection then... 
                     // check if selection is in props.countries
-                    Option.of(props.countries.find(_2 => _2.code === _1.code))
+                    option(props.countries.find(_2 => _2.code === _1.code))
                 )
                 // if not, set the <select>'s value to the 1st element in props.countries
-                .orElse(Option.of(props.countries[0]))
+                .orElse(() => option(props.countries[0]))
 
             country.map(_ => props.countrySelected(_))
 
@@ -83,7 +83,7 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
             code: value.key,
             name: value.label
         }
-        this.setState({ country: Option.of(country) })
+        this.setState({ country: option(country) })
         this.props.countrySelected(country)
     }
 

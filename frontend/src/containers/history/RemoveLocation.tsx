@@ -7,11 +7,11 @@ import {
     mapHistoryDispatchToProps
 } from "../../store/history/actions"
 
-import { HistoryLocation } from "../../store/history/types"
+import { HistoryItem } from "../../store/history/types"
 
-class RemoveLocation extends React.Component<HistoryDispatchProps & HistoryLocation> {
+class RemoveLocation extends React.Component<HistoryDispatchProps & HistoryItem> {
 
-    constructor(props: HistoryDispatchProps & HistoryLocation) {
+    constructor(props: HistoryDispatchProps & HistoryItem) {
         super(props)
     }
 

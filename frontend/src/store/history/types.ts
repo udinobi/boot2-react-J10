@@ -1,13 +1,20 @@
 import { Action } from "redux"
 
+import { Option } from "ts-option"
+
 import { Location, LocationSelectedAction } from "../location/city/types"
 
-export interface HistoryLocation {
+import { WeatherData, WeatherDataRetrievedAction } from "../weather/types"
+
+export interface HistoryItem {
+    // Last Weather Update
+    lastUpdate: Option<Date>
     location: Location
+    weatherData: Option<WeatherData>
 }
 
 export interface HistoryState {
-    locations: Location[]
+    items: HistoryItem[]
 }
 
 export enum HistoryActionType {
@@ -18,7 +25,7 @@ export enum HistoryActionType {
 export interface LocationReloadAction extends Action {
     type: HistoryActionType.LOCATION_RELOAD
     payload: {
-        location: Location
+        history: HistoryItem
     }
 }
 
@@ -30,4 +37,4 @@ export interface LocationRemoveAction extends Action {
 }
 
 export type HistoryActions =
-    LocationRemoveAction | LocationSelectedAction
+    LocationRemoveAction | LocationSelectedAction | WeatherDataRetrievedAction

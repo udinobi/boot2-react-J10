@@ -1,6 +1,6 @@
 import { Action } from "redux"
 
-import { Option } from "tsoption"
+import { Option } from "ts-option"
 
 import { Country, CountrySelectedAction } from "../country/types"
 
@@ -10,10 +10,11 @@ export interface Coordinates {
 }
 
 export interface Location {
-    geoId: number
-    name: string
     coord: Coordinates
     country: Country
+    geoId: number
+    name: string
+    tz: string
 }
 
 export interface CityState {

@@ -19,7 +19,7 @@ import { connect } from "react-redux"
 
 import styled from "styled-components"
 
-import { Option } from "tsoption"
+import { option } from "ts-option"
 
 import MapInfo, { MapInfoState } from "../../components/map/MapInfo"
 
@@ -30,19 +30,17 @@ import { initialState } from "../../store/map/reducer"
 import { MapAndWeatherState } from "../../store/mapAndWeather/types"
 
 
-export const historyAndMapHeight = Option
-    .of(process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT)
+export const historyAndMapHeight = option(process.env.REACT_APP_HISTORY_AND_MAP_HEIGHT)
     .getOrElse("360px")
 
-const minZoomLevel = +Option.of(process.env.REACT_APP_MIN_MAP_ZOOM_LEVEL).getOrElse("2")
+const minZoomLevel = +option(process.env.REACT_APP_MIN_MAP_ZOOM_LEVEL).getOrElse("2")
 
 const setZoomLevel = (zoom: number) => zoom < minZoomLevel ? minZoomLevel : zoom
 
 const zoomOnLocationChange =
-    setZoomLevel(+Option.of(process.env.REACT_APP_LOCATION_MAP_ZOOM_LEVEL).getOrElse("11"))
+    setZoomLevel(+option(process.env.REACT_APP_LOCATION_MAP_ZOOM_LEVEL).getOrElse("11"))
 
-const provider = Option
-    .of(process.env.REACT_APP_MAP_TILES_PROVIDER as string)
+const provider = option(process.env.REACT_APP_MAP_TILES_PROVIDER as string)
     .getOrElse("osm")
     .toLowerCase()
 
@@ -109,7 +107,7 @@ class MapComponent extends React.Component<any, MapState> {
 
             this.setState({
                 coord,
-                location: Option.of(location),
+                location: option(location),
                 zoom
             })
 
