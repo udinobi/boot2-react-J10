@@ -1,6 +1,6 @@
 # Frontend
 
-The new "About" page added with this branch.
+The new "About" page added with the 06-about-page branch.
 
 ![about-page](../doc-assets/06-about-page.png)
 
