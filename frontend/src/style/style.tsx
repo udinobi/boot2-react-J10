@@ -1,14 +1,17 @@
 import { injectGlobal } from "styled-components"
 
+import bgi from "../assets/aurora.jpg"
+
 export default injectGlobal`
 
     @import url("https://fonts.googleapis.com/css?family=Raleway");
     @import url("http://fonts.googleapis.com/css?family=Roboto");
 
-    body {
+    html, body {
         border: 0;
         font-family: Raleway, sans-serif;
         font-size: 1.1rem;
+        height: 100%
         margin: 0;
         padding: 0;
     }
@@ -25,6 +28,21 @@ export default injectGlobal`
         line-height: 36px;
     }
 
+    .aurora {
+        background-image: url(${bgi});
+        background-position: center;
+        background-repeat: round;
+        background-size: contain;
+        height: 100vh;
+        position: fixed;
+        width: 100vw;
+    }
+
+    .aurora a {
+        color: #FFE329;
+        font-weight: bold;
+    }
+
     .day-under-5-icon-color  { color: #0093DC; }
     .day-under-12-icon-color { color: #3A8183; }
     .day-under-22-icon-color { color: #E9BD15; }
@@ -33,6 +51,22 @@ export default injectGlobal`
 
     .grid-overflow {
         overflow: hidden;
+    }
+
+    .ant-layout-header nav a {
+        display: inline-block;
+        padding: 0 1em;
+        color: #fff;
+    }
+
+    .ant-layout-header nav a:hover {
+        background-color: #eee;
+        color: #555;
+    }
+
+    .ant-layout-header nav a.active {
+        background-color: #1890FF;
+        color: #fff;
     }
 
     .history-location-wrapper {
@@ -51,8 +85,8 @@ export default injectGlobal`
 
     .title-border {
         border-bottom: 1px solid #ccc;
-        margin: 0 auto 32px auto;
-        padding-bottom: 6px;
+        margin: 0 auto 16px auto;
+        padding-bottom: 4px;
     }
 
     .title-border.map {

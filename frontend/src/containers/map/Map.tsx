@@ -46,6 +46,9 @@ const provider = option(process.env.REACT_APP_MAP_TILES_PROVIDER as string)
 
 type MapState = MapAndWeatherState & MapInfoState
 
+// Ughh! Global flags
+let stillToSync = true
+let getCurrentPosition = true
 
 class MapComponent extends React.Component<any, MapState> {
 
@@ -77,7 +80,11 @@ class MapComponent extends React.Component<any, MapState> {
             })
         })
 
-        sync(this.map)
+        if (stillToSync) {
+            stillToSync = false
+            sync(this.map)
+        }
+
         this.view = this.map.getView()
     }
 
@@ -136,15 +143,18 @@ class MapComponent extends React.Component<any, MapState> {
     private initialCoords = (): ol.Coordinate => {
         let coords = this.fromLonLat([48.2082, 16.3738])  // Arbitrary... Vienna, AT :)
   
-        navigator.geolocation.getCurrentPosition(
-            pos => coords = this.fromLonLat([ pos.coords.latitude, pos.coords.longitude ]),
-            () => alert("Sadly, your browser cannot\nretrieve your current position.\nYou can check it out at:\nhttps://html5demos.com/geo/"),
-            {
-                enableHighAccuracy: true,
-                maximumAge: 0,
-                timeout: 8000
-            }
-        )
+        if (getCurrentPosition) {
+            getCurrentPosition = false
+                navigator.geolocation.getCurrentPosition(
+                pos => coords = this.fromLonLat([ pos.coords.latitude, pos.coords.longitude ]),
+                () => alert("Sadly, your browser cannot\nretrieve your current position.\nYou can check it out at:\nhttps://html5demos.com/geo/"),
+                {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 8000
+                }
+            )
+        }
 
         return coords  
     }

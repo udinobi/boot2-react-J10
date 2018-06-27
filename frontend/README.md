@@ -1,5 +1,9 @@
 # Frontend
 
+The new "About" page added with this branch.
+
+![about-page](../doc-assets/06-about-page.png)
+
 ## Configuration
 
 The frontend app provides 3 configuration profiles :

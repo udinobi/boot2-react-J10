@@ -1,6 +1,6 @@
 # boot2-react-J10
 
-PoC project with Spring Boot 2 (Java 10) as backend and React/Redux (Typescript 2.9) as frontend.
+PoC project with Spring Boot 2 (Java 10) as backend and React/Redux (Typescript 2.9) as SPA frontend.
 
 <hr/>
 
@@ -16,7 +16,7 @@ When the location is selected ...
 - the location is geographically shown in a "Map" section.
 - the location is added to a selection History, from where it can be selected again. Weather information for every location are also cached to the History to save api calls to OWM.
 
-![selection-history](doc-assets/05-weather-section.png)
+![selection-history](doc-assets/06-about-page-home.png)
 
 <hr/>
 
@@ -35,8 +35,8 @@ Development takes place through progressive feature branches, in order to make i
 Java (JDK) | 10.0.1 |
 ElasticSearch | 6.3.0 |
 ElasticSearch Java Client | 5.6.9 | REST API 6.3
-Spring Boot | 2.0.2.RELEASE |
-Undertow | 1.4.25.Final |
+Spring Boot | 2.0.2 |
+Undertow | 1.4.25 |
 
 ### Frontend
 
@@ -47,6 +47,7 @@ Ant Design | 3.6.2 |
 Openlayers | 4.6.5 |
 React | 16.4.0 |
 React-Redux | 5.0.7 |
+<span style="color: #1FC076">**React-Router-Dom**</span> | <span style="color: #1FC076">**4.3.1**</span>
 Redux-Observable | 1.0.0-beta.2 |
 Rxjs | 6.2.1 |
 Styled-Components | 3.3.2 |

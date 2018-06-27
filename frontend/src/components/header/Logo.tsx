@@ -15,6 +15,7 @@ export default styled.img`
     &:hover {
         animation: ${rotate360} infinite 1.5s linear;
     }
+    z-index: 10;
     margin-left: 12px;
     margin-top: 12px;
 `
