@@ -50,7 +50,7 @@ export const suggestionsRetrieved: ActionCreator<SuggestionsRetrievedAction> = (
 
 // Action mapping ----------------------------------------------------------------------------------
 
-export interface CityDispatchProps {
+export interface CityProps {
     locationSelected: typeof locationSelected
     suggestionsLookup: typeof suggestionsLookup
     suggestionsReset: typeof suggestionsReset

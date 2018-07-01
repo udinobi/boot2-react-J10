@@ -3,11 +3,11 @@ import React from "react"
 import { connect } from "react-redux"
 
 import {
-    LoadCountryDispatchProps,
+    CountriesProps,
     mapCountryDispatchToProps
 } from "../../store/location/country/actions"
 
-const ReloadCountries = (props: LoadCountryDispatchProps) => {
+export const ReloadCountries = (props: CountriesProps) => {
     {/* tslint:disable:jsx-boolean-value */}
     return <Button
         data-tip data-for="ReloadCountries"

@@ -25,7 +25,7 @@ const countriesLoading: ActionCreator<CountriesLoadingAction> = () => ({
 const url =
     `${process.env.REACT_APP_SERVICE_URL}${process.env.REACT_APP_LOAD_COUNTRIES_PATH}`
 
-const loadCountries = () =>
+export const loadCountries = () =>
     async (dispatch: Dispatch<CountryActions>) => {
         dispatch(countriesLoading())
 
@@ -56,7 +56,8 @@ export const countrySelected = (country: Country) =>
 
 // Action mapping ----------------------------------------------------------------------------------
 
-export interface LoadCountryDispatchProps {
+export interface CountriesProps {
+    countries: Country[]
     countrySelected: typeof countrySelected
     loadCountries: typeof loadCountries
 }

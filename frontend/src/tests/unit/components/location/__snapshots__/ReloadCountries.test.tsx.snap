@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > location > 'ReloadCountries' matches 1`] = `
+<button
+  className="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only"
+  data-for="ReloadCountries"
+  data-tip={true}
+  onClick={[Function]}
+  type="button"
+>
+  <i
+    className="anticon anticon-reload"
+  />
+</button>
+`;

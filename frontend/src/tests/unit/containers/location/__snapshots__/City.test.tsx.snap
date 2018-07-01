@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Containers > location > 'City' matches 1`] = `
+<div
+  className="sc-bdVaJa gikoeI ant-select-show-search ant-select-auto-complete ant-select ant-select-combobox ant-select-enabled ant-select-allow-clear"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onContextMenu={undefined}
+  onFocus={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={undefined}
+  onMouseLeave={undefined}
+  onTouchStart={[Function]}
+  style={undefined}
+>
+  <div
+    aria-autocomplete="list"
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="ant-select-selection
+            ant-select-selection--single"
+    role="combobox"
+  >
+    <div
+      className="ant-select-selection__rendered"
+    >
+      <ul>
+        <li
+          className="ant-select-search ant-select-search--inline"
+        >
+          <div
+            className="ant-select-search__field__wrap"
+          >
+            <input
+              className="ant-input ant-select-search__field"
+              disabled={false}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="ant-select-search__field__mirror"
+            >
+              
+               
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <span
+      className="ant-select-arrow"
+      onClick={[Function]}
+      style={
+        Object {
+          "WebkitUserSelect": "none",
+          "userSelect": "none",
+        }
+      }
+      unselectable="on"
+    >
+      <b />
+    </span>
+  </div>
+</div>
+`;

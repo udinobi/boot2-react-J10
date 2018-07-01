@@ -1,5 +1,4 @@
 import ol from "ol"
-import sync from "ol-hashed"
 import Control from "ol/control"
 import Feature from "ol/feature"
 import Point from "ol/geom/point"
@@ -21,7 +20,11 @@ import styled from "styled-components"
 
 import { option } from "ts-option"
 
+import marker from "../../assets/marker.png"
+
 import MapInfo, { MapInfoState } from "../../components/map/MapInfo"
+
+import synchronize from "../../lib/ol-hashed"
 
 import { AppState } from "../../store/store"
 
@@ -43,18 +46,46 @@ const zoomOnLocationChange =
 const provider = option(process.env.REACT_APP_MAP_TILES_PROVIDER as string)
     .getOrElse("osm")
     .toLowerCase()
+                                                        // 'EPSG:4326' -> 'EPSG:3857'
+const fromLonLat = (coord: [number, number]) => Proj.fromLonLat([ coord[1], coord[0] ])
+
+const initialCoords = (): ol.Coordinate => {
+    let coords = fromLonLat([48.2082, 16.3738])  // Arbitrary... Vienna, AT :)
+
+    if (getCurrentPosition) {
+        getCurrentPosition = false
+        if (navigator) {
+            navigator.geolocation.getCurrentPosition(
+                pos => coords = fromLonLat([ pos.coords.latitude, pos.coords.longitude ]),
+                () => alert("Sadly, your browser cannot\nretrieve your current position.\nYou can check it out at:\nhttps://html5demos.com/geo/"),
+                {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 8000
+                }
+            )
+        }
+    }
+
+    return coords  
+}
+
+const mapInfoState: MapInfoState = {
+    coord: initialCoords(),
+    zoom: minZoomLevel
+}
+
+let getCurrentPosition = process.env.REACT_APP_PROFILE !== "testing"
 
 type MapState = MapAndWeatherState & MapInfoState
 
-// Ughh! Global flags
-let stillToSync = true
-let getCurrentPosition = true
-
-class MapComponent extends React.Component<any, MapState> {
+export class MapContainer extends React.Component<any, MapState> {
 
     private readonly map: Map
 
     private readonly markerSource = new SourceVector()
+
+    private readonly unregister: () => void
 
     private readonly view: View
 
@@ -62,9 +93,9 @@ class MapComponent extends React.Component<any, MapState> {
         super(props)
 
         this.state = {
-            coord: this.initialCoords(),
+            coord: mapInfoState.coord,
             location: initialState.location,
-            zoom: minZoomLevel
+            zoom: mapInfoState.zoom
         }
 
         this.map = new Map({
@@ -74,16 +105,10 @@ class MapComponent extends React.Component<any, MapState> {
                 new LayerVector({ source: this.markerSource, style: this.markerStyle() }),
             ],
             target: undefined,
-            view: new View({
-                center: this.state.coord,
-                zoom: minZoomLevel
-            })
+            view: new View()
         })
 
-        if (stillToSync) {
-            stillToSync = false
-            sync(this.map)
-        }
+        this.unregister = synchronize(this.map)
 
         this.view = this.map.getView()
     }
@@ -91,11 +116,16 @@ class MapComponent extends React.Component<any, MapState> {
     public componentDidMount() {
         this.map.setTarget("map")
 
+        const coord = this.view.getCenter()
+        if (coord[0] === 0 && coord[1] === 0) {
+            this.updateMap()
+        }
+
         // Listen to map changes
         this.map.on("moveend", () => {
             this.setState({
-                coord: this.view.getCenter(),
-                zoom: setZoomLevel(this.view.getZoom())
+                coord: mapInfoState.coord = this.view.getCenter(),
+                zoom: mapInfoState.zoom = setZoomLevel(this.view.getZoom())
             })
         })
     }
@@ -110,7 +140,7 @@ class MapComponent extends React.Component<any, MapState> {
                 ? zoomOnLocationChange
                 : this.state.zoom
 
-            const coord = this.fromLonLat([ +location.coord.lat, +location.coord.lon ])
+            const coord = fromLonLat([ +location.coord.lat, +location.coord.lon ])
 
             this.setState({
                 coord,
@@ -122,13 +152,17 @@ class MapComponent extends React.Component<any, MapState> {
         })
     }
 
+    public componentWillUnmount() {
+        this.unregister()
+    }
+
     public render() {
         const height = historyAndMapHeight
         return (
-            <MapContainer>
+            <StyledMap>
                 <MapInfo coord={this.state.coord} zoom={this.state.zoom} />
                 <div id="map" style={{ height, width: "100%" }} />
-            </MapContainer>
+            </StyledMap>
         )
     }
 
@@ -136,28 +170,6 @@ class MapComponent extends React.Component<any, MapState> {
         geometry: new Point(coord),
         name
     }))
-      
-                                                           // 'EPSG:4326' -> 'EPSG:3857'
-    private fromLonLat = (coord: [number, number]) => Proj.fromLonLat([ coord[1], coord[0] ])
-
-    private initialCoords = (): ol.Coordinate => {
-        let coords = this.fromLonLat([48.2082, 16.3738])  // Arbitrary... Vienna, AT :)
-  
-        if (getCurrentPosition) {
-            getCurrentPosition = false
-                navigator.geolocation.getCurrentPosition(
-                pos => coords = this.fromLonLat([ pos.coords.latitude, pos.coords.longitude ]),
-                () => alert("Sadly, your browser cannot\nretrieve your current position.\nYou can check it out at:\nhttps://html5demos.com/geo/"),
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 0,
-                    timeout: 8000
-                }
-            )
-        }
-
-        return coords  
-    }
 
     private markerStyle = () => new Style({
         image: new Icon({
@@ -166,7 +178,7 @@ class MapComponent extends React.Component<any, MapState> {
             anchorYUnits: "pixels",
             opacity: 1,
             // src: "https://openlayers.org/en/v4.6.5/examples/data/icon.png"
-            src: require("assets/marker.png")
+            src: marker
         })
     })
 
@@ -190,7 +202,7 @@ class MapComponent extends React.Component<any, MapState> {
     }
 }
 
-const MapContainer = styled.div`
+const StyledMap = styled.div`
     @media (max-width: 991px) {
         margin-bottom: 18px;
     }
@@ -200,7 +212,7 @@ const mapStateToProps = (state: AppState): MapAndWeatherState => ({
     location: state.mapState.location
 })
 
-export default connect(mapStateToProps)(MapComponent)
+export default connect(mapStateToProps)(MapContainer)
 
 /* to animate the moving between 2 places you can use...
        map.getView().animate({center: coords, zoom: 10})

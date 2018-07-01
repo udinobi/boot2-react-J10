@@ -1,4 +1,7 @@
+import React from "react"
 import styled, { keyframes } from "styled-components"
+
+import logo from "../../assets/logo.png"
 
 const rotate360 = keyframes`
     from {
@@ -9,7 +12,7 @@ const rotate360 = keyframes`
     }
 `
 
-export default styled.img`
+const Logo = styled.img`
     animation: ${rotate360} infinite 120s linear;
     height: 80px;
     &:hover {
@@ -19,3 +22,6 @@ export default styled.img`
     margin-left: 12px;
     margin-top: 12px;
 `
+
+export default () =>
+    <Logo src={logo} alt="'Weather In The World' logo"/>

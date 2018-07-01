@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Containers > history > 'History' matches 1`] = `
+<div
+  style={
+    Object {
+      "height": "360px",
+      "overflow": "auto",
+    }
+  }
+>
+  <div>
+    <div
+      className="ant-list ant-list-split"
+    >
+      <div
+        className="ant-spin-nested-loading"
+        style={null}
+      >
+        <div
+          className="ant-spin-container"
+        >
+          <div
+            className="ant-list-empty-text"
+          >
+            No data
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

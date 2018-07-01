@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > weather > 'Humidity' matches 1`] = `
+<div
+  style={
+    Object {
+      "marginTop": 20,
+    }
+  }
+>
+  <styled.i
+    className="wi wi-humidity"
+  />
+  <Styled(Styled(Styled(styled.div)))>
+    0
+    %
+  </Styled(Styled(Styled(styled.div)))>
+</div>
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > weather > 'TemperatureMin' matches 1`] = `
+<div
+  style={
+    Object {
+      "marginTop": 6,
+    }
+  }
+>
+  <styled.i
+    className="wi wi-thermometer-exterior"
+  />
+  <Styled(Styled(Styled(styled.div)))>
+    <styled.span>
+      0
+    </styled.span>
+    <sup>
+      °C
+    </sup>
+     
+     
+    (min.)
+  </Styled(Styled(Styled(styled.div)))>
+</div>
+`;

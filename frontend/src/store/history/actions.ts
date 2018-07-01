@@ -28,7 +28,7 @@ const removeLocation = (location: Location) =>
 
 // Action mapping ----------------------------------------------------------------------------------
 
-export interface HistoryDispatchProps {
+export interface HistoryProps {
     reloadLocation: typeof reloadLocation
     removeLocation: typeof removeLocation
 }

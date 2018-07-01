@@ -5,8 +5,6 @@ import { NavLink } from "react-router-dom"
 
 import styled from "styled-components"
 
-import logo from "../../assets/logo.png"
-
 import Logo from "./Logo"
 import Title from "./Title"
 
@@ -31,7 +29,7 @@ const Nav = styled.nav`
 
 export default () => (
     <Header>
-        <Logo src={logo} alt="'Weather In The World' logo"/>
+        <Logo />
         <Title>Weather In The World</Title>
         <Nav>
             {/* tslint:disable:jsx-boolean-value */}

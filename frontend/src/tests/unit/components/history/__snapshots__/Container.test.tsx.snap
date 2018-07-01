@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > History 'Container' matches 1`] = `
+<div>
+  <div
+    className="title-border"
+  >
+    <h1
+      className="title"
+    >
+      History
+    </h1>
+  </div>
+  <div>
+    <Connect(History) />
+  </div>
+</div>
+`;

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > map > 'Container' matches 1`] = `
+<div>
+  <div
+    className="title-border map"
+  >
+    <h1
+      className="title"
+    >
+      Map
+    </h1>
+  </div>
+  <div>
+    <Connect(MapContainer) />
+  </div>
+</div>
+`;

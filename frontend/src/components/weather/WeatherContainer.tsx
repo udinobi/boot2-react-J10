@@ -1,9 +1,8 @@
 import { Col, Row } from "antd"
-import * as moment from "moment"
-import "moment-timezone"
+import * as moment from "moment-timezone"
 import React from "react"
 
-import { Option } from "ts-option"
+import { option, Option } from "ts-option"
 
 import Description from "./Description"
 import Humidity from "./Humidity"
@@ -58,7 +57,7 @@ export default (props: Data) => {
                 </Row>
                 <Row>
                     <Col span={12}>
-                        <Temperature weatherData={props.weatherData} />
+                        <Temperature weatherData={option(props.weatherData)} />
                     </Col>
                     <Col span={12}>
                         <div style={{ float: "right", marginTop: 8 }}>

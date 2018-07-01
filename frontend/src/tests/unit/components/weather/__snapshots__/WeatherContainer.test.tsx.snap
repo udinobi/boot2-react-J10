@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > weather > 'WeatherContainer' matches 1`] = `
+<div>
+  <Row
+    gutter={0}
+  >
+    <Styled(styled.div)>
+       
+       
+      (
+      IT
+      )
+    </Styled(styled.div)>
+    <Component
+      lastUpdate={None {}}
+    />
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col
+      lg={15}
+      md={24}
+      sm={24}
+      xs={24}
+    >
+      <Row
+        gutter={0}
+      >
+        <Col>
+          <Component
+            weather={
+              Array [
+                Object {
+                  "description": "",
+                  "icon": "",
+                  "id": 0,
+                  "main": "",
+                },
+              ]
+            }
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={12}
+        >
+          <Component
+            weatherData={
+              Some {
+                "_value": Object {
+                  "coord": Object {
+                    "lat": 0,
+                    "lon": 0,
+                  },
+                  "main": Object {
+                    "grnd_level": 0,
+                    "humidity": 0,
+                    "pressure": 0,
+                    "sea_level": 0,
+                    "temp": 0,
+                    "temp_max": 0,
+                    "temp_min": 0,
+                  },
+                  "sys": Object {
+                    "sunrise": 0,
+                    "sunset": 0,
+                  },
+                  "weather": Array [
+                    Object {
+                      "description": "",
+                      "icon": "",
+                      "id": 0,
+                      "main": "",
+                    },
+                  ],
+                },
+              }
+            }
+          />
+        </Col>
+        <Col
+          span={12}
+        >
+          <div
+            style={
+              Object {
+                "float": "right",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Component
+              humidity={0}
+            />
+            <Component
+              minTemperature={0}
+            />
+            <Component
+              maxTemperature={0}
+            />
+          </div>
+        </Col>
+      </Row>
+    </Col>
+    <Col
+      lg={9}
+      md={24}
+      sm={24}
+      xs={24}
+    >
+      <Component
+        sunrise="00:00:00 GMT+0"
+      />
+      <Component
+        sunset="00:00:00 GMT+0"
+      />
+    </Col>
+  </Row>
+</div>
+`;

@@ -11,13 +11,13 @@ import { initialCityState } from "../../store/location/city/reducer"
 import { AppState } from "../../store/store"
 
 import {
-    CityDispatchProps,
+    CityProps,
     mapCityDispatchToProps
 } from "../../store/location/city/actions"
 
 import { CityState, Location } from "../../store/location/city/types"
 
-class City extends React.Component<CityDispatchProps, CityState> {
+export class City extends React.Component<CityProps, CityState> {
 
     private readonly autocomplete = styled(AutoComplete)`
         font-size: 1.1rem;
@@ -29,14 +29,14 @@ class City extends React.Component<CityDispatchProps, CityState> {
 
     private readonly Option = AutoComplete.Option
 
-    constructor(props: CityDispatchProps) {
+    constructor(props: CityProps) {
         super(props)
 
 		this.state = initialCityState
         this.onSelect = this.onSelect.bind(this)
     }
 
-    public componentWillReceiveProps(props: CityDispatchProps & CityState) {
+    public componentWillReceiveProps(props: CityProps & CityState) {
         this.setState({
             country: props.country,
             suggestions: props.suggestions

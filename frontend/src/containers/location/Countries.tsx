@@ -9,7 +9,7 @@ import { none, Option, option } from "ts-option"
 import { AppState } from "../../store/store"
 
 import { 
-    LoadCountryDispatchProps,
+    CountriesProps,
     mapCountryDispatchToProps
 } from "../../store/location/country/actions"
 
@@ -24,7 +24,7 @@ interface Value {
     label: string
 }
 
-class Countries extends React.Component<LoadCountryDispatchProps, CountryState & SelectionState> {
+export class Countries extends React.Component<CountriesProps, CountryState & SelectionState> {
 
     private readonly Option = Select.Option
 
@@ -33,7 +33,7 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
         width: 100%;
     `
 
-    constructor(props: LoadCountryDispatchProps) {
+    constructor(props: CountriesProps) {
         super(props)
 
         this.state = {
@@ -46,10 +46,10 @@ class Countries extends React.Component<LoadCountryDispatchProps, CountryState &
         this.props.loadCountries()
     }
 
-    public componentWillReceiveProps(props: LoadCountryDispatchProps & CountryState) {
+    public componentWillReceiveProps(props: CountriesProps) {
         if (this.state.countries !== props.countries) {
             const country = props.countries.length === 0
-                ? option<Country>()               // No countries... need to clear <select>
+                ? option<Country>()                  // No countries... need to clear <select>
                 : this.state.country.flatMap(_1 =>   // Have countries and if have current selection then... 
                     // check if selection is in props.countries
                     option(props.countries.find(_2 => _2.code === _1.code))

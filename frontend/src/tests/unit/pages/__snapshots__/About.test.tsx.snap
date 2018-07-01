@@ -1,0 +1,351 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for 'About' matches 1`] = `
+<div
+  className="aurora"
+>
+  <div
+    className="sc-bdVaJa lcLvQv"
+  >
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <h2
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        Weather In The World
+      </h2>
+      <h4
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        Yet another weather React app...
+        <br />
+        but on steroids
+      </h4>
+      <p
+        style={
+          Object {
+            "margin": "1em auto",
+          }
+        }
+      >
+        PoC project with 
+        <a
+          href="https://spring.io/projects/spring-boot"
+          target="_blank"
+        >
+          Spring Boot 2
+        </a>
+          (
+        <a
+          href="http://openjdk.java.net/projects/jdk/10/"
+          target="_blank"
+        >
+          Java 10
+        </a>
+        ) as backend and 
+        <a
+          href="https://reactjs.org/"
+          target="_blank"
+        >
+          React
+        </a>
+        /
+        <a
+          href="https://redux.js.org/"
+          target="_blank"
+        >
+          Redux
+        </a>
+          (
+        <a
+          href="https://www.typescriptlang.org/"
+          target="_blank"
+        >
+          Typescript 2.9
+        </a>
+        ) as frontend.
+      </p>
+      <h2
+        style={
+          Object {
+            "color": "#fff",
+            "textAlign": "center",
+          }
+        }
+      >
+        Main Dependencies
+      </h2>
+    </div>
+    <div>
+      <table
+        style={
+          Object {
+            "margin": "auto",
+          }
+        }
+      >
+        <tbody>
+          <tr>
+            <td
+              style={
+                Object {
+                  "display": "block",
+                  "paddingRight": 80,
+                }
+              }
+            >
+              <table>
+                <tbody>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      ElasticSearch
+                    </td>
+                    <td>
+                      6.3.0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      ElasticSearch Java
+                    </td>
+                    <td>
+                      5.6.9
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Java (JDK)
+                    </td>
+                    <td>
+                      10.0.1
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Spring Boot
+                    </td>
+                    <td>
+                      2.0.2
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Undertow
+                    </td>
+                    <td>
+                      1.4.25
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Ant Design
+                    </td>
+                    <td>
+                      3.6.4
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      OpenLayers
+                    </td>
+                    <td>
+                      4.6.5
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      React
+                    </td>
+                    <td>
+                      16.4.1
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      React Infinite Scroller
+                    </td>
+                    <td>
+                      1.2.0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      React Redux
+                    </td>
+                    <td>
+                      5.0.7
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      React Router (dom)
+                    </td>
+                    <td>
+                      4.3.1
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Redux
+                    </td>
+                    <td>
+                      4.0.0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Redux Observable
+                    </td>
+                    <td>
+                      1.0.0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Rxjs
+                    </td>
+                    <td>
+                      6.2.1
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Styled Components
+                    </td>
+                    <td>
+                      3.3.3
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style={
+                        Object {
+                          "paddingRight": 18,
+                        }
+                      }
+                    >
+                      Typescript
+                    </td>
+                    <td>
+                      2.9.2
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

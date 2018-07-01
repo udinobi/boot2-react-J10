@@ -30,7 +30,7 @@ export const weatherDataRetrieved: ActionCreator<WeatherDataRetrievedAction> =
 
 // Action mapping ----------------------------------------------------------------------------------
 
-export interface WeatherDispatchProps {
+export interface WeatherProps {
     weatherDataRetrieve: typeof weatherDataRetrieve
 }
 

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Containers > weather > 'WeatherComponent' matches 1`] = `
+<div
+  className="sc-bdVaJa hAHHhE"
+>
+  Please, provide your OpenWeatherMap API key to retrieve weather information.
+</div>
+`;

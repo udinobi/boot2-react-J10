@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > location > 'Container' matches 1`] = `
+<div>
+  <Row
+    gutter={0}
+  >
+    <div
+      className="title-border"
+    >
+      <h1
+        className="title"
+      >
+        Location
+      </h1>
+    </div>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col
+      lg={24}
+      md={24}
+      sm={24}
+      style={
+        Object {
+          "minHeight": 180,
+        }
+      }
+      xl={14}
+      xs={24}
+      xxl={15}
+    >
+      <Row
+        gutter={0}
+        style={
+          Object {
+            "marginBottom": 6,
+            "textAlign": "center",
+          }
+        }
+      >
+        <Col
+          span={22}
+        >
+          <label>
+            Country
+          </label>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          lg={22}
+          md={21}
+          sm={21}
+          xs={21}
+        >
+          <Connect(Countries) />
+        </Col>
+        <Col
+          span={1}
+        />
+        <Col
+          lg={1}
+          md={2}
+          sm={2}
+          style={
+            Object {
+              "marginTop": 2,
+            }
+          }
+          xs={2}
+        >
+          <Connect(Component) />
+          <ReactTooltip
+            id="ReloadCountries"
+            insecure={true}
+            resizeHide={true}
+            wrapper="div"
+          >
+            <div>
+              Reload available countries
+            </div>
+            <div>
+              (because a new country was
+            </div>
+            <div>
+               
+              probably added to the DB)
+            </div>
+          </ReactTooltip>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+        style={
+          Object {
+            "marginBottom": 6,
+            "marginTop": 28,
+            "textAlign": "center",
+          }
+        }
+      >
+        <Col
+          lg={22}
+          md={21}
+          sm={21}
+          xs={21}
+        >
+          <label>
+            City
+          </label>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          lg={22}
+          md={21}
+          sm={21}
+          xs={21}
+        >
+          <Connect(City) />
+        </Col>
+      </Row>
+    </Col>
+    <Col
+      lg={0}
+      md={0}
+      sm={0}
+      xl={1}
+      xs={0}
+      xxl={2}
+    />
+    <Styled(Col)
+      lg={0}
+      md={0}
+      sm={0}
+      xl={9}
+      xs={0}
+      xxl={7}
+    >
+      <div
+        style={
+          Object {
+            "fontSize": "1rem",
+            "position": "absolute",
+            "textAlign": "right",
+            "top": "60%",
+            "transform": "translateY(-50%)",
+            "width": "100%",
+          }
+        }
+      >
+        Please, select here the location you want the weather report for.
+      </div>
+    </Styled(Col)>
+  </Row>
+</div>
+`;

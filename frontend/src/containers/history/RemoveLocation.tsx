@@ -3,15 +3,15 @@ import React from "react"
 import { connect } from "react-redux"
 
 import {
-    HistoryDispatchProps,
+    HistoryProps,
     mapHistoryDispatchToProps
 } from "../../store/history/actions"
 
 import { HistoryItem } from "../../store/history/types"
 
-class RemoveLocation extends React.Component<HistoryDispatchProps & HistoryItem> {
+export class RemoveLocation extends React.Component<HistoryProps & HistoryItem> {
 
-    constructor(props: HistoryDispatchProps & HistoryItem) {
+    constructor(props: HistoryProps & HistoryItem) {
         super(props)
     }
 

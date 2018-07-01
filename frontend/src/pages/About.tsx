@@ -27,19 +27,17 @@ export default () => (
 
             <div>
                 <table style={{ margin: "auto" }}>
-                    <tr>
-                        <td style={{ display: "block", paddingRight: 80 }}>
-                            <table>
+                    <tbody>
+                        <tr>
+                            <td style={{ display: "block", paddingRight: 80 }}>
                                 {dependencies(backend)}
-                            </table>
-                        </td>
+                            </td>
 
-                        <td>
-                            <table>
+                            <td>
                                 {dependencies(frontend)}
-                            </table>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </About>
@@ -47,18 +45,18 @@ export default () => (
 )
 
 const dependencies = (deps: Deps) => {
-    const table: JSX.Element[] = []
+    const rows: JSX.Element[] = []
 
     Object.keys(deps).forEach(dep => {
-        table.push(
-            <tr>
+        rows.push(
+            <tr key={dep}>
                 <td style={{ paddingRight: 18 }}>{dep}</td>
                 <td>{deps[dep]}</td>
             </tr>
         )
     })
 
-    return table
+    return <table><tbody>{rows}</tbody></table>
 }
 
 interface Deps {
@@ -74,15 +72,15 @@ const backend = {
 }
 
 const frontend = {
-    "Ant Design": "3.6.2",
+    "Ant Design": "3.6.4",
     "OpenLayers": "4.6.5",
-    "React": "16.4.0",
-    "React Infinite Scroller": "1.1.4",
+    "React": "16.4.1",
+    "React Infinite Scroller": "1.2.0",
     "React Redux": "5.0.7",
     "React Router (dom)": "4.3.1",
     "Redux": "4.0.0",
-    "Redux Observable": "1.0.0-beta.2",
+    "Redux Observable": "1.0.0",
     "Rxjs": "6.2.1",
-    "Styled Components": "3.3.2",
-    "Typescript": "2.9.1"
+    "Styled Components": "3.3.3",
+    "Typescript": "2.9.2"
 }

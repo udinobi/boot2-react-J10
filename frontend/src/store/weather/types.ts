@@ -14,17 +14,17 @@ export interface Weather {
 }
 
 export interface WeatherData {
-    base: string
-    clouds: {
+    base?: string
+    clouds?: {
         all: number
     }
-    cod: number
+    cod?: number
     coord: {
         lat: number
         lon: number
     }
-    dt: number
-    id: number
+    dt?: number
+    id?: number
     main: {
         grnd_level: number
         humidity: number
@@ -34,12 +34,12 @@ export interface WeatherData {
         temp_max: number
         temp_min: number
     }
-    name: string
-    rain: {
+    name?: string
+    rain?: {
         h3: string
         val: number
     }
-    snow: {
+    snow?: {
         h3: string
         val: number
     }
@@ -47,9 +47,9 @@ export interface WeatherData {
         sunrise: number
         sunset: number
     }
-    visibility: number
+    visibility?: number
     weather: Weather[]
-    wind: {
+    wind?: {
         deg: number
         speed: number
     }

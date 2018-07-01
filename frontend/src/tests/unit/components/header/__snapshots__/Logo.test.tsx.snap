@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > header > 'Logo' matches 1`] = `
+<img
+  alt="'Weather In The World' logo"
+  className="sc-bdVaJa fQqfno"
+  src="logo.png"
+/>
+`;

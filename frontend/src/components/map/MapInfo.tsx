@@ -5,6 +5,8 @@ import React from "react"
 
 import styled from "styled-components"
 
+import { num2Text } from "../../lib/utils"
+
 export interface MapInfoState {
     // The coordinate system OpenLayers uses by default for the map view is (Web Mercator EPSG: 3857).
     coord: ol.Coordinate
@@ -28,6 +30,8 @@ export default (props: MapInfoState) => {
     const coord = toLonLat(props.coord)
     return <MapInfo>
         zoom level ({props.zoom})
-        <CoordInfo>[ {coord[1].toPrecision(8)}, {"\u00a0"}{coord[0].toPrecision(9)} ]</CoordInfo>
+        <CoordInfo>
+            [ {num2Text(coord[1], 8)}, {"\u00a0"}{num2Text(coord[0], 9)} ]
+        </CoordInfo>
     </MapInfo>
 }

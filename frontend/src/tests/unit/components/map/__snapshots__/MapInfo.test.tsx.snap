@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > map > 'MapInfo' matches 1`] = `
+<styled.div>
+  zoom level (
+  11
+  )
+  <styled.span>
+    [ 
+    0
+    , 
+     
+    0
+     ]
+  </styled.span>
+</styled.div>
+`;

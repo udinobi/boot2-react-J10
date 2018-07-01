@@ -10,24 +10,24 @@ import FilterContainer from "../../components/weather/FilterContainer"
 
 import { AppState } from "../../store/store"
 
-import { mapWeatherDispatchToProps, WeatherDispatchProps } from "../../store/weather/actions";
+import { mapWeatherDispatchToProps, WeatherProps } from "../../store/weather/actions";
 
 import { initialState } from "../../store/weather/reducer"
 
 import { WeatherState } from "../../store/weather/types"
 
 
-class WeatherComponent extends React.Component<WeatherDispatchProps, WeatherState> {
+export class WeatherComponent extends React.Component<WeatherProps, WeatherState> {
 
     private readonly owmApiKey = option(process.env.REACT_APP_OWM_API_KEY)
     
-    constructor(props: WeatherDispatchProps) {
+    constructor(props: WeatherProps) {
         super(props)
 
         this.state = initialState
     }
 
-    public componentWillReceiveProps(props: WeatherDispatchProps & WeatherState) {
+    public componentWillReceiveProps(props: WeatherProps & WeatherState) {
         this.setState({
             askingWeatherDataToOWM: props.askingWeatherDataToOWM,
             lastUpdate: props.lastUpdate,

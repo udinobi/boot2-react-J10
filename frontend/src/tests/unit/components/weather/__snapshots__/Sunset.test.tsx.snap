@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Components > weather > 'Sunset' matches 1`] = `
+<div>
+  <styled.i
+    className="wi wi-sunset"
+  />
+  <Styled(Styled(Styled(styled.div))) />
+</div>
+`;

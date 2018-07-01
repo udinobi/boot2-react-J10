@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--> Snapshot for Containers > history > 'RemoveLocation' matches 1`] = `
+<button
+  className="ant-btn ant-btn-danger ant-btn-circle ant-btn-sm ant-btn-icon-only"
+  data-for="RemoveLocation"
+  data-tip={true}
+  onClick={[Function]}
+  type="button"
+>
+  <i
+    className="anticon anticon-minus-circle"
+  />
+</button>
+`;

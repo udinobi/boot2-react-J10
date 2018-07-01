@@ -13,7 +13,7 @@ import RemoveLocation from "./RemoveLocation"
 import { historyAndMapHeight } from "../map/Map"
 
 import {
-    HistoryDispatchProps,
+    HistoryProps,
     mapHistoryDispatchToProps
 } from "../../store/history/actions"
 
@@ -21,15 +21,15 @@ import { initialHistoryState } from "../../store/history/reducer"
 
 import { HistoryItem, HistoryState } from "../../store/history/types"
 
-class History extends React.Component<HistoryDispatchProps, HistoryState> {
+export class History extends React.Component<HistoryProps, HistoryState> {
 
-    constructor(props: HistoryDispatchProps) {
+    constructor(props: HistoryProps) {
         super(props)
 
         this.state = initialHistoryState
     }
 
-    public componentWillReceiveProps(props: HistoryDispatchProps & HistoryState) {
+    public componentWillReceiveProps(props: HistoryProps & HistoryState) {
         this.setState({
             items: props.items
         })

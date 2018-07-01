@@ -2,10 +2,12 @@ import React from "react"
 
 import styled from "styled-components"
 
+import { Option } from "ts-option"
+
 import { WeatherData } from "../../store/weather/types"
 
 export interface Data {
-    weatherData: WeatherData
+    weatherData: Option<WeatherData>
 }
 
 const Celsius = styled.sup`
@@ -46,9 +48,12 @@ const icon = (weatherData: WeatherData) =>
         ? <Icon className={`${iconClasses(weatherData)}-${weatherData.weather[0].id}`} />
         : <div style={{ height: 64, paddingRight: 22, width: 64 }} />
 
-export default (props: Data) => 
-    <div>
-        {icon(props.weatherData)}
-        <Degrees>{Math.round(props.weatherData.main.temp)}</Degrees>
-        <Celsius>°C</Celsius>
-    </div>
+export default (props: Data) =>
+    props.weatherData.map(weatherData => (
+        <div>
+            {icon(weatherData)}
+            <Degrees>{Math.round(weatherData.main.temp)}</Degrees>
+            <Celsius>°C</Celsius>
+        </div>
+    ))
+    .getOrElse(<div />)
